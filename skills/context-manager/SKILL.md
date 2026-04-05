@@ -342,9 +342,15 @@ Do not duplicate existing items.
 Keep memory files lean — 5–10 lines pointing to docs/context/.
 
 ### Step 7 — Commit and push
+Use the Write tool to write the commit message to a temporary file — do NOT interpolate it into a shell command:
+- File: `commit_msg.txt` at the project root
+- Content: `docs: context update {date} — {one line summary}`
+
+Then run:
 ```bash
 git add docs/context/ docs/sessions/ docs/backlog/
-git commit -m "docs: context update {date} — {one line summary}"
+git commit -F commit_msg.txt
+rm commit_msg.txt
 git push
 ```
 
