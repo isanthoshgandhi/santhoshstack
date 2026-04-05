@@ -1,67 +1,33 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "santhoshstack",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "owner": {
     "name": "Santhosh Gandhi",
     "url": "https://github.com/isanthoshgandhi"
   },
   "metadata": {
     "description": "Personal Claude Code skills by Santhosh Gandhi — context-manager, frugal-token-usage, foresight-intelligence",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "homepage": "https://github.com/isanthoshgandhi/santhoshstack",
     "repository": "https://github.com/isanthoshgandhi/santhoshstack",
     "license": "MIT",
-    "keywords": [
-      "claude-code",
-      "context-manager",
-      "frugal-token-usage",
-      "productivity",
-      "session-management"
-    ]
+    "keywords": ["claude-code", "productivity", "foresight", "context-management", "token-efficiency"]
   },
   "plugins": [
     {
-      "name": "context-manager",
-      "description": "File-based project context system. SETUP, RESUME, UPDATE modes. Any AI tool can resume any project from docs/context/pointers.md — Claude, Codex, Cursor, Windsurf.",
-      "version": "1.0.0",
+      "name": "santhoshstack",
+      "description": "Personal Claude Code skills by Santhosh Gandhi. Includes context-manager, frugal-token-usage, and foresight-intelligence.",
+      "version": "1.3.0",
       "author": {
         "name": "Santhosh Gandhi",
         "url": "https://github.com/isanthoshgandhi"
       },
       "repository": "https://github.com/isanthoshgandhi/santhoshstack",
       "license": "MIT",
-      "keywords": ["context", "session-management", "resume", "multi-tool"],
+      "keywords": ["productivity", "foresight", "context-management", "token-efficiency"],
       "category": "productivity",
-      "source": "./skills/context-manager"
-    },
-    {
-      "name": "frugal-token-usage",
-      "description": "Mid-session audit that enforces minimal-token behaviour. Stops unnecessary Bash, enforces dedicated tools, cuts verbose responses.",
-      "version": "1.0.0",
-      "author": {
-        "name": "Santhosh Gandhi",
-        "url": "https://github.com/isanthoshgandhi"
-      },
-      "repository": "https://github.com/isanthoshgandhi/santhoshstack",
-      "license": "MIT",
-      "keywords": ["token-efficiency", "productivity", "frugal"],
-      "category": "productivity",
-      "source": "./skills/frugal-token-usage"
-    },
-    {
-      "name": "foresight-intelligence",
-      "description": "Strategic foresight using IFTF methodology. Two modes: Soft Predict (instant, claude.ai compatible) and Hard Predict (deterministic Python pipeline, auditable). Say 'hard predict:' to use the deterministic mode.",
-      "version": "1.0.0",
-      "author": {
-        "name": "Santhosh Gandhi",
-        "url": "https://github.com/isanthoshgandhi"
-      },
-      "repository": "https://github.com/isanthoshgandhi/santhoshstack",
-      "license": "MIT",
-      "keywords": ["foresight", "strategy", "futures", "iftf", "prediction"],
-      "category": "strategy",
-      "source": "./skills/foresight-intelligence"
+      "source": "./"
     }
   ]
 }

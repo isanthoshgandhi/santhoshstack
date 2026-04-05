@@ -1,0 +1,13 @@
+{
+  "name": "santhoshstack",
+  "version": "1.3.0",
+  "description": "Personal Claude Code skills by Santhosh Gandhi. Includes context-manager, frugal-token-usage, and foresight-intelligence.",
+  "author": {
+    "name": "Santhosh Gandhi",
+    "url": "https://github.com/isanthoshgandhi"
+  },
+  "homepage": "https://github.com/isanthoshgandhi/santhoshstack",
+  "repository": "https://github.com/isanthoshgandhi/santhoshstack",
+  "license": "MIT",
+  "keywords": ["productivity", "foresight", "context-management", "token-efficiency"]
+}
