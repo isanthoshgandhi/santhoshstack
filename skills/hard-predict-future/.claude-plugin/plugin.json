@@ -1,0 +1,13 @@
+{
+  "name": "hard-predict-future",
+  "version": "1.0.0",
+  "description": "Deterministic 12-step foresight agent. Python-computed scores, identical output every run, full JSON audit trail. Requires Claude Code.",
+  "author": {
+    "name": "Santhosh Gandhi",
+    "url": "https://github.com/isanthoshgandhi"
+  },
+  "homepage": "https://github.com/isanthoshgandhi/santhoshstack",
+  "repository": "https://github.com/isanthoshgandhi/santhoshstack",
+  "license": "MIT",
+  "keywords": ["foresight", "strategy", "futures", "iftf", "deterministic", "prediction"]
+}

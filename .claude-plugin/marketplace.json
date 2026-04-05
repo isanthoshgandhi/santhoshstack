@@ -7,8 +7,8 @@
     "url": "https://github.com/isanthoshgandhi"
   },
   "metadata": {
-    "description": "Personal Claude Code skills by Santhosh Gandhi — context-manager and frugal-token-usage",
-    "version": "1.0.0",
+    "description": "Personal Claude Code skills by Santhosh Gandhi — context-manager, frugal-token-usage, soft-predict-future, hard-predict-future",
+    "version": "1.1.0",
     "homepage": "https://github.com/isanthoshgandhi/santhoshstack",
     "repository": "https://github.com/isanthoshgandhi/santhoshstack",
     "license": "MIT",
@@ -48,6 +48,34 @@
       "keywords": ["token-efficiency", "productivity", "frugal"],
       "category": "productivity",
       "source": "./skills/frugal-token-usage"
+    },
+    {
+      "name": "soft-predict-future",
+      "description": "Claude-native strategic foresight using IFTF methodology. Structural drivers, cross-impact analysis, backcasting, four-scenario reports with VERDICT. Works on claude.ai and Claude Code.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Santhosh Gandhi",
+        "url": "https://github.com/isanthoshgandhi"
+      },
+      "repository": "https://github.com/isanthoshgandhi/santhoshstack",
+      "license": "MIT",
+      "keywords": ["foresight", "strategy", "futures", "iftf"],
+      "category": "strategy",
+      "source": "./skills/soft-predict-future"
+    },
+    {
+      "name": "hard-predict-future",
+      "description": "Deterministic 12-step foresight agent. Python-computed scores, identical output every run, full JSON audit trail. Requires Claude Code.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Santhosh Gandhi",
+        "url": "https://github.com/isanthoshgandhi"
+      },
+      "repository": "https://github.com/isanthoshgandhi/santhoshstack",
+      "license": "MIT",
+      "keywords": ["foresight", "strategy", "futures", "iftf", "deterministic"],
+      "category": "strategy",
+      "source": "./skills/hard-predict-future"
     }
   ]
 }
