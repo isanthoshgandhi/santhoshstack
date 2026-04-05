@@ -55,12 +55,17 @@ A starter CLAUDE.md is in [`claude.md.example`](./claude.md.example).
 
 ---
 
-## More from Santhosh
+## More from Santhosh Gandhi
+
+[santhoshgandhi.com](https://santhoshgandhi.com)
 
 **Writing & Media**
 - [Medium](https://medium.com/@isanthoshgandhi) — Writing on venture capital, startups, and AI
 - [YouTube — VC with Santhosh](https://www.youtube.com/@vcwithsanthosh) — VC content
 - [Instagram — @vcwithsanthosh](https://www.instagram.com/vcwithsanthosh) — VC content
+
+**Book**
+- [Notes of an Unconventional UX Researcher](https://www.santhoshgandhi.com/notesofuxresearcher) — [Kindle](https://www.amazon.in/Notes-Unconventional-Researcher-Santhosh-Gandhi-ebook/dp/B0B8TR339W) · [Paperback](https://www.amazon.in/Notes-Unconventional-Researcher-Santhosh-Gandhi/dp/B0B9RYV44Q)
 
 **Open source**
 - [venture-capital-intelligence](https://github.com/isanthoshgandhi/venture-capital-intelligence) — Startup screening, pitch decks, cap tables, financial modeling
