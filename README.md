@@ -55,11 +55,16 @@ A starter CLAUDE.md is in [`claude.md.example`](./claude.md.example).
 
 ---
 
-## More from santhoshstack
+## More from Santhosh
 
-- [foresight-intelligence](https://github.com/isanthoshgandhi/foresight-intelligence) — Strategic foresight using IFTF methodology. Soft + Hard Predict.
-- [venture-capital-intelligence](https://github.com/isanthoshgandhi/venture-capital-intelligence) — Startup screening, pitch decks, cap tables, financial modeling.
-- [buildwithclaude](https://github.com/isanthoshgandhi/buildwithclaude) — Plugin marketplace for Claude Code.
+**Writing & Media**
+- [Medium](https://medium.com/@isanthoshgandhi) — Writing on venture capital, startups, and AI
+- [YouTube — VC with Santhosh](https://www.youtube.com/@vcwithsanthosh) — VC content
+- [Instagram — @vcwithsanthosh](https://www.instagram.com/vcwithsanthosh) — VC content
+
+**Open source**
+- [venture-capital-intelligence](https://github.com/isanthoshgandhi/venture-capital-intelligence) — Startup screening, pitch decks, cap tables, financial modeling
+- [awesome-vc-opensource](https://github.com/isanthoshgandhi/awesome-vc-opensource) — Curated list of open-source tools for VC and startups
 
 ---
 
