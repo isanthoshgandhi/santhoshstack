@@ -1,14 +1,12 @@
 # santhoshstack
 
-Personal AI skills by [Santhosh Gandhi](https://github.com/isanthoshgandhi) — builder, investor, and writer on venture capital and startups.
+Personal AI skills by [Santhosh Gandhi](https://github.com/isanthoshgandhi) — VC content creator, author, AI-enabled builder, systems thinker.
 
 ---
 
 ## What this is
 
-A curated set of Claude Code skills I use every day. Not a framework. Not a platform. Just the tools that make AI sessions faster, cheaper, and less repetitive.
-
-Each skill solves one problem I kept hitting. I open-source them because the problems aren't unique to me.
+A collection of Claude Code skills I find useful and interesting. I open-source them in case others do too.
 
 ---
 
@@ -18,7 +16,7 @@ Each skill solves one problem I kept hitting. I open-source them because the pro
 
 Every session starts from zero unless you build systems that survive context resets. Every token wasted on verbose responses or unnecessary file reads is a token not spent on the actual problem.
 
-These skills are my answer to both.
+I'm not a software engineer. I'm sharing what I'm exploring as someone who came to this from a different direction — and I believe that perspective is useful, especially for others who aren't engineers either.
 
 ---
 
