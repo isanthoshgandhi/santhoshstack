@@ -295,9 +295,15 @@ Scripts are at: `${CLAUDE_PLUGIN_ROOT}/skills/foresight-intelligence/scripts/`
 ---
 
 ## Step 1 — Validate (Python)
+Use the Write tool to write the user query to a temporary file — do NOT interpolate it into a shell command:
+- File: `${CLAUDE_PLUGIN_ROOT}/query.txt`
+- Content: the raw query text exactly as typed
+
+Then run:
 ```
-python "${CLAUDE_PLUGIN_ROOT}/skills/foresight-intelligence/scripts/input_validator.py" "[query]"
+python "${CLAUDE_PLUGIN_ROOT}/skills/foresight-intelligence/scripts/input_validator.py" "${CLAUDE_PLUGIN_ROOT}/query.txt"
 ```
+Note: `input_validator.py` must read the query from the file path using Python open().
 If `valid=false`: output rejection message and STOP. If `valid=true`: infer horizon and proceed.
 
 ## Step 2 — Collect Signals (Claude)
