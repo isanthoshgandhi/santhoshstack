@@ -1,0 +1,13 @@
+{
+  "name": "context-manager",
+  "version": "1.0.0",
+  "description": "File-based project context system. SETUP, RESUME, UPDATE modes. Any AI tool can resume any project from docs/context/pointers.md — Claude, Codex, Cursor, Windsurf.",
+  "author": {
+    "name": "Santhosh Gandhi",
+    "url": "https://github.com/isanthoshgandhi"
+  },
+  "homepage": "https://github.com/isanthoshgandhi/santhoshstack",
+  "repository": "https://github.com/isanthoshgandhi/santhoshstack",
+  "license": "MIT",
+  "keywords": ["context", "session-management", "resume", "multi-tool", "productivity"]
+}

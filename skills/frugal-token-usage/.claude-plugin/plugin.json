@@ -1,0 +1,13 @@
+{
+  "name": "frugal-token-usage",
+  "version": "1.0.0",
+  "description": "Mid-session audit that enforces minimal-token behaviour. Stops unnecessary Bash, enforces dedicated tools (Read/Grep/Glob), cuts verbose responses.",
+  "author": {
+    "name": "Santhosh Gandhi",
+    "url": "https://github.com/isanthoshgandhi"
+  },
+  "homepage": "https://github.com/isanthoshgandhi/santhoshstack",
+  "repository": "https://github.com/isanthoshgandhi/santhoshstack",
+  "license": "MIT",
+  "keywords": ["token-efficiency", "productivity", "frugal", "context-management"]
+}

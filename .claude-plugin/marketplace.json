@@ -1,0 +1,53 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "santhoshstack",
+  "version": "1.0.0",
+  "owner": {
+    "name": "Santhosh Gandhi",
+    "url": "https://github.com/isanthoshgandhi"
+  },
+  "metadata": {
+    "description": "Personal Claude Code skills by Santhosh Gandhi — context-manager and frugal-token-usage",
+    "version": "1.0.0",
+    "homepage": "https://github.com/isanthoshgandhi/santhoshstack",
+    "repository": "https://github.com/isanthoshgandhi/santhoshstack",
+    "license": "MIT",
+    "keywords": [
+      "claude-code",
+      "context-manager",
+      "frugal-token-usage",
+      "productivity",
+      "session-management"
+    ]
+  },
+  "plugins": [
+    {
+      "name": "context-manager",
+      "description": "File-based project context system. SETUP, RESUME, UPDATE modes. Any AI tool can resume any project from docs/context/pointers.md — Claude, Codex, Cursor, Windsurf.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Santhosh Gandhi",
+        "url": "https://github.com/isanthoshgandhi"
+      },
+      "repository": "https://github.com/isanthoshgandhi/santhoshstack",
+      "license": "MIT",
+      "keywords": ["context", "session-management", "resume", "multi-tool"],
+      "category": "productivity",
+      "source": "./skills/context-manager"
+    },
+    {
+      "name": "frugal-token-usage",
+      "description": "Mid-session audit that enforces minimal-token behaviour. Stops unnecessary Bash, enforces dedicated tools, cuts verbose responses.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Santhosh Gandhi",
+        "url": "https://github.com/isanthoshgandhi"
+      },
+      "repository": "https://github.com/isanthoshgandhi/santhoshstack",
+      "license": "MIT",
+      "keywords": ["token-efficiency", "productivity", "frugal"],
+      "category": "productivity",
+      "source": "./skills/frugal-token-usage"
+    }
+  ]
+}
