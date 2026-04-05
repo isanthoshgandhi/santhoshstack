@@ -7,8 +7,8 @@
     "url": "https://github.com/isanthoshgandhi"
   },
   "metadata": {
-    "description": "Personal Claude Code skills by Santhosh Gandhi — context-manager, frugal-token-usage, soft-predict-future, hard-predict-future",
-    "version": "1.1.0",
+    "description": "Personal Claude Code skills by Santhosh Gandhi — context-manager, frugal-token-usage, foresight-intelligence",
+    "version": "1.2.0",
     "homepage": "https://github.com/isanthoshgandhi/santhoshstack",
     "repository": "https://github.com/isanthoshgandhi/santhoshstack",
     "license": "MIT",
@@ -50,8 +50,8 @@
       "source": "./skills/frugal-token-usage"
     },
     {
-      "name": "soft-predict-future",
-      "description": "Claude-native strategic foresight using IFTF methodology. Structural drivers, cross-impact analysis, backcasting, four-scenario reports with VERDICT. Works on claude.ai and Claude Code.",
+      "name": "foresight-intelligence",
+      "description": "Strategic foresight using IFTF methodology. Two modes: Soft Predict (instant, claude.ai compatible) and Hard Predict (deterministic Python pipeline, auditable). Say 'hard predict:' to use the deterministic mode.",
       "version": "1.0.0",
       "author": {
         "name": "Santhosh Gandhi",
@@ -59,23 +59,9 @@
       },
       "repository": "https://github.com/isanthoshgandhi/santhoshstack",
       "license": "MIT",
-      "keywords": ["foresight", "strategy", "futures", "iftf"],
+      "keywords": ["foresight", "strategy", "futures", "iftf", "prediction"],
       "category": "strategy",
-      "source": "./skills/soft-predict-future"
-    },
-    {
-      "name": "hard-predict-future",
-      "description": "Deterministic 12-step foresight agent. Python-computed scores, identical output every run, full JSON audit trail. Requires Claude Code.",
-      "version": "1.0.0",
-      "author": {
-        "name": "Santhosh Gandhi",
-        "url": "https://github.com/isanthoshgandhi"
-      },
-      "repository": "https://github.com/isanthoshgandhi/santhoshstack",
-      "license": "MIT",
-      "keywords": ["foresight", "strategy", "futures", "iftf", "deterministic"],
-      "category": "strategy",
-      "source": "./skills/hard-predict-future"
+      "source": "./skills/foresight-intelligence"
     }
   ]
 }

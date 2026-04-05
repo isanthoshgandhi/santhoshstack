@@ -37,8 +37,7 @@ Or copy any skill directly into `~/.claude/skills/`.
 |---|---|
 | `context-manager` | Sets up `docs/context/` so any AI tool can resume any project without re-reading everything. Three modes: SETUP, RESUME, UPDATE. Works with Claude, Codex, Cursor, Windsurf. |
 | `frugal-token-usage` | Mid-session audit. Stops unnecessary Bash, enforces dedicated tools, cuts verbose responses. |
-| `soft-predict-future` | Claude-native strategic foresight using IFTF methodology. Drivers, cross-impact, backcasting, four-scenario report with VERDICT. Works on claude.ai — no Python needed. |
-| `hard-predict-future` | Deterministic 12-step foresight agent. Python-computed scores, identical output every run, full JSON audit trail. Requires Claude Code. |
+| `foresight-intelligence` | Strategic foresight using IFTF methodology. Two modes in one skill: Soft Predict (instant, works on claude.ai) and Hard Predict (deterministic Python pipeline, identical output every run). Say `hard predict: [question]` to use the deterministic mode. |
 
 More skills added as I build them.
 

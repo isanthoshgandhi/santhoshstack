@@ -1,0 +1,13 @@
+{
+  "name": "foresight-intelligence",
+  "version": "1.0.0",
+  "description": "Strategic foresight engine using IFTF methodology. Two modes: Soft Predict (instant, claude.ai compatible) and Hard Predict (deterministic Python pipeline, auditable). Drivers, cross-impact, backcasting, four-scenario reports with VERDICT.",
+  "author": {
+    "name": "Santhosh Gandhi",
+    "url": "https://github.com/isanthoshgandhi"
+  },
+  "homepage": "https://github.com/isanthoshgandhi/santhoshstack",
+  "repository": "https://github.com/isanthoshgandhi/santhoshstack",
+  "license": "MIT",
+  "keywords": ["foresight", "strategy", "futures", "iftf", "prediction", "scenario-planning"]
+}
