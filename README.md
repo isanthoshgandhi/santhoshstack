@@ -1,6 +1,6 @@
 # santhoshstack
 
-Personal AI skills by [Santhosh Gandhi](https://github.com/isanthoshgandhi) — VC content creator, systems thinker, UX professional, AI-enabled builder.
+Personal AI skills by [Santhosh Gandhi](https://github.com/isanthoshgandhi) — VC content creator · systems thinker · author · AI-enabled builder.
 
 ---
 
