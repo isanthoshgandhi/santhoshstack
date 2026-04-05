@@ -1,0 +1,41 @@
+# Claude Global Rules
+
+These rules apply to every session, every project.
+
+---
+
+## Frugal Token Usage
+
+### Hand off CLI commands — don't run them
+Give the exact command and say "Run this in your terminal." Do NOT run via Bash:
+- Builds, package installs, test runs when outcome is already known
+
+Run via Bash ONLY when you need the output to decide your next step.
+
+### Use dedicated tools, not Bash
+- Read files → Read tool (with offset+limit)
+- Search content → Grep tool (with head_limit)
+- Find files → Glob tool
+- Edit files → Edit tool
+
+### Read only what you need
+- Grep first, then Read with offset+limit — never read full files speculatively
+- If you already read a file this session, use what you noted — don't re-read
+
+### Keep responses short
+- Lead with the answer — not the reasoning
+- No preamble ("Great!", "I'll now...", "Let me...")
+- No trailing summary of what you just did
+- One sentence if one sentence is enough
+
+### Minimise tool calls
+- Parallel tool calls when independent — one message, multiple tools
+- Don't spawn an Agent when Grep or a direct Read would find it
+
+---
+
+## Response Style
+- No emojis unless explicitly asked
+- No restating what the user said — just do it
+- Short, direct sentences
+- Reference code by file:line — don't quote large blocks in text
