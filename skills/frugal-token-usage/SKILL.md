@@ -37,13 +37,25 @@ Say: `Run this in your terminal:` followed by the exact command.
 ---
 
 ### 2. Use dedicated tools, not Bash
+
+**File operations — follow this decision tree exactly:**
+```
+IF writing a new file          → Write tool
+IF editing existing file       → Edit tool
+IF appending rows/lines        → Edit tool (not open(...,'a') or echo >>)
+IF deleting a file             → Bash rm — no dedicated tool exists
+IF moving/renaming a file      → Bash mv — no dedicated tool exists
+IF shell redirection (>, >>)   → NEVER for file content — silently fails on Windows
+IF piping / stdout capture     → Bash is fine (e.g. cmd | tail -20)
+```
+
 | Task | Use | Not |
 |---|---|---|
 | Read a file | `Read` tool with `offset`+`limit` | `cat`, `head`, `tail` via Bash |
 | Search content | `Grep` tool with `head_limit` | `grep`, `rg` via Bash |
 | Find files | `Glob` tool | `find`, `ls` via Bash |
-| Edit a file | `Edit` tool | `sed`, `awk` via Bash |
-| Create a file | `Write` tool | `echo >` or heredoc via Bash |
+| Edit / append file | `Edit` tool | `sed`, `awk`, `echo >>` via Bash |
+| Create a file | `Write` tool | `echo >`, `echo >>`, or heredoc via Bash |
 
 ---
 
@@ -55,18 +67,29 @@ Say: `Run this in your terminal:` followed by the exact command.
 ---
 
 ### 4. Keep responses short
-- Lead with the answer or action, not reasoning
-- No preamble ("Great question!", "I'll now proceed to...")
-- No trailing summary of what you just did — the user can see the diff
-- No restating what the user said
-- If you can say it in one sentence, use one sentence
+
+**Response length — follow this decision tree:**
+```
+IF routine task (edit, fix, add feature)    → one sentence max, no explanation
+IF design / architecture decision           → enough context for user to agree/disagree
+IF user asks "why" or "what do you think"  → full reasoning
+IF error or blocker                         → explain root cause, not just the fix
+```
 
 ---
 
 ### 5. Minimise tool calls
+
+**Agent vs Grep — follow this decision tree:**
+```
+IF searching for a specific file/class/function  → Grep or Glob directly
+IF exploring a codebase broadly (unknown structure) → Agent
+IF task requires 3+ rounds of search             → Agent
+IF single targeted search                        → never Agent
+```
+
 - Run parallel tool calls when independent — one message, multiple tools
 - Don't run `git status` before every commit — ask the user to confirm changes instead
-- Don't use `Agent` when `Grep` would find it in one shot
 - Don't read files speculatively — only read what the current task actually requires
 
 ---
