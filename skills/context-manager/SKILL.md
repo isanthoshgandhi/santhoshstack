@@ -238,6 +238,16 @@ Next action: {single most important next step — specific enough to act on}
 {completed changes}
 ```
 
+### Step 5b — Decide where context files live
+
+Before creating any files, check repo visibility:
+
+- **Private repo** → create `docs/context/` inside the project root as normal. Context stays here.
+- **Public repo** → do NOT create `docs/context/` inside the repo. Create it in the private workspace at `D:\Claude\claude-workspace\projects\{repo-name}\docs\context\` instead.
+- **Repo going public** → strip `docs/context/`, session logs, `CLAUDE.md` from the repo first. Move them to `D:\Claude\claude-workspace\projects\{repo-name}\`. Then proceed with making it public.
+
+Public repos get skills only — never context, session logs, or build history.
+
 ### Step 6 — Wire up memory
 
 Update `~/.claude/projects/.../memory/` files to point to `docs/context/`:
