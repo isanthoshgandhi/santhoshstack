@@ -49,7 +49,7 @@ Read the project root. Look for:
 - Any existing notes, backlogs, or decision records
 
 Ask the user: "What are the main domains of work in this project?"
-Examples: corpus/ingestion, product/UI, schema/database, algorithm/ranking, frontend, backend
+Examples: frontend, backend, data, API, auth, payments, infrastructure, mobile
 
 ### Step 2 — Design the structure (fit the project, don't impose)
 
@@ -289,11 +289,22 @@ Look for `docs/context/pointers.md`. Read only that file first.
 Check the QUICK RESUME block — this alone may be enough for simple continuations.
 
 ### Step 2 — Match domain to user's task
-- Crawling, scraping, pipeline, data → corpus/ingestion domain
-- UI, tabs, product decisions, design → product domain
-- Database, schema, import, search → schema/data domain
-- Ranking, algorithm, intelligence → algorithm domain
-- Unclear → load only the QUICK RESUME block, ask user to clarify
+Read the domain list in `pointers.md`, then map the user's task using these signals:
+
+| Task signals | Likely domain |
+|---|---|
+| UI, design, screens, components, layout | frontend / product |
+| API, endpoints, server, logic, processing | backend / services |
+| Database, schema, migrations, queries, storage | data / schema |
+| Ingestion, pipeline, sync, imports, batch jobs | data / pipeline |
+| Auth, permissions, roles, sessions | auth / security |
+| Deploy, infra, CI, environment, config | infrastructure |
+| Ranking, scoring, recommendations, intelligence | algorithm / ML |
+| Payments, billing, subscriptions | payments |
+
+Match to the domain names actually defined in `pointers.md` — these are just common patterns.
+If the task spans multiple domains, pick the primary one.
+If unclear, load only the QUICK RESUME block and ask: "Which area — {list domain names from pointers.md}?"
 
 ### Step 3 — Load 2–3 files only
 Load exactly what pointers.md says for that domain. Nothing extra.
@@ -319,7 +330,7 @@ Run `git diff HEAD` and scan the conversation for:
 - Decisions made
 - Tasks completed / abandoned
 - New open questions or blockers
-- Current numbers/stats (rows scraped, tests passing, etc.)
+- Current numbers/stats (records processed, tests passing, coverage, etc.)
 
 ### Step 2 — Update domain context file
 Edit `docs/context/{domain}.md`. Surgical edits only — don't rewrite everything.
@@ -342,15 +353,9 @@ Do not duplicate existing items.
 Keep memory files lean — 5–10 lines pointing to docs/context/.
 
 ### Step 7 — Commit and push
-Use the Write tool to write the commit message to a temporary file — do NOT interpolate it into a shell command:
-- File: `commit_msg.txt` at the project root
-- Content: `docs: context update {date} — {one line summary}`
-
-Then run:
 ```bash
 git add docs/context/ docs/sessions/ docs/backlog/
-git commit -F commit_msg.txt
-rm commit_msg.txt
+git commit -m "docs: context update {date} — {one line summary}"
 git push
 ```
 
