@@ -54,16 +54,39 @@ Pick only what you need. Each skill is standalone.
 git clone https://github.com/isanthoshgandhi/santhoshstack.git
 ```
 
-**2. Copy the skill folder to your Claude skills directory:**
+**2. Copy the skill you want:**
+
+#### context-manager
 
 Mac / Linux:
 ```bash
 cp -r santhoshstack/skills/context-manager ~/.claude/skills/
 ```
-
 Windows (PowerShell):
 ```powershell
 Copy-Item -Recurse santhoshstack\skills\context-manager $env:USERPROFILE\.claude\skills\
+```
+
+#### frugal-token-usage
+
+Mac / Linux:
+```bash
+cp -r santhoshstack/skills/frugal-token-usage ~/.claude/skills/
+```
+Windows (PowerShell):
+```powershell
+Copy-Item -Recurse santhoshstack\skills\frugal-token-usage $env:USERPROFILE\.claude\skills\
+```
+
+#### foresight-intelligence
+
+Mac / Linux:
+```bash
+cp -r santhoshstack/skills/foresight-intelligence ~/.claude/skills/
+```
+Windows (PowerShell):
+```powershell
+Copy-Item -Recurse santhoshstack\skills\foresight-intelligence $env:USERPROFILE\.claude\skills\
 ```
 
 **3. Verify it's available:**
