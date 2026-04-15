@@ -22,115 +22,100 @@ I'm not a software engineer. I'm sharing what I'm exploring as someone who came 
 
 ## Skills
 
-| Skill | What it does |
-|---|---|
-| `context-manager` | Three-layer context system for any project. SETUP builds `docs/context/` so any AI tool can resume without re-reading everything. RESUME detects how long you've been away and loads the right amount of context. UPDATE saves progress and distills sessions into long-term learnings. Works with Claude, Codex, Cursor, Windsurf. |
-| `frugal-token-usage` | Mid-session audit. Stops unnecessary Bash, enforces dedicated tools, cuts verbose responses. |
-| `foresight-intelligence` | Strategic foresight using IFTF methodology. Two modes: Soft Predict (instant, works on claude.ai) and Hard Predict (deterministic Python pipeline, identical output every run). Say `hard predict: [question]` for the deterministic mode. |
+### context-manager
 
-More skills added as I build them.
+Three-layer context system for any project. SETUP builds `docs/context/` so any AI tool can resume without re-reading everything. RESUME detects how long you've been away and loads the right amount of context. UPDATE saves progress and distills sessions into long-term learnings. Works with Claude, Codex, Cursor, Windsurf.
 
----
-
-## Install
-
-### Option A — Install all skills at once
-
-```bash
-claude plugin marketplace add isanthoshgandhi/santhoshstack
-claude plugin install santhoshstack
-```
-
-This installs all skills from this repo into `~/.claude/skills/`.
-
----
-
-### Option B — Install a single skill
-
-Pick only what you need. Each skill is standalone.
-
-**1. Clone or download this repo:**
-```bash
-git clone https://github.com/isanthoshgandhi/santhoshstack.git
-```
-
-**2. Copy the skill you want:**
-
-#### context-manager
+**Install**
 
 Mac / Linux:
 ```bash
+git clone https://github.com/isanthoshgandhi/santhoshstack.git
 cp -r santhoshstack/skills/context-manager ~/.claude/skills/
 ```
 Windows (PowerShell):
 ```powershell
+git clone https://github.com/isanthoshgandhi/santhoshstack.git
 Copy-Item -Recurse santhoshstack\skills\context-manager $env:USERPROFILE\.claude\skills\
 ```
 
-#### frugal-token-usage
+**Use**
+```
+/context-manager
+```
+Or say: *"set up context for this project"* / *"resume"* / *"save session"*
+
+---
+
+### frugal-token-usage
+
+Mid-session audit. Stops unnecessary Bash, enforces dedicated tools, cuts verbose responses. Run it when a session feels bloated or slow.
+
+**Install**
 
 Mac / Linux:
 ```bash
+git clone https://github.com/isanthoshgandhi/santhoshstack.git
 cp -r santhoshstack/skills/frugal-token-usage ~/.claude/skills/
 ```
 Windows (PowerShell):
 ```powershell
+git clone https://github.com/isanthoshgandhi/santhoshstack.git
 Copy-Item -Recurse santhoshstack\skills\frugal-token-usage $env:USERPROFILE\.claude\skills\
 ```
 
-#### foresight-intelligence
+**Use**
+```
+/frugal-token-usage
+```
+Or say: *"be frugal"* / *"reduce token usage"*
+
+> **Tip:** The frugal rules are more effective as permanent standing orders than as an on-demand skill. Copy them into `~/.claude/CLAUDE.md` to apply them every session. A starter file is in [`claude.md.example`](./claude.md.example).
+
+---
+
+### foresight-intelligence
+
+Strategic foresight using IFTF methodology. Two modes — Soft Predict (instant, works on claude.ai and Claude Code) and Hard Predict (deterministic Python pipeline, identical output every run).
+
+**Install**
 
 Mac / Linux:
 ```bash
+git clone https://github.com/isanthoshgandhi/santhoshstack.git
 cp -r santhoshstack/skills/foresight-intelligence ~/.claude/skills/
 ```
 Windows (PowerShell):
 ```powershell
+git clone https://github.com/isanthoshgandhi/santhoshstack.git
 Copy-Item -Recurse santhoshstack\skills\foresight-intelligence $env:USERPROFILE\.claude\skills\
 ```
 
-**3. Verify it's available:**
+**Use**
+```
+/foresight-intelligence
+```
+Or say: *"predict: [question]"* for Soft mode · *"hard predict: [question]"* for deterministic mode
+
+---
+
+## Install all skills at once
+
+```bash
+git clone https://github.com/isanthoshgandhi/santhoshstack.git
+cp -r santhoshstack/skills/* ~/.claude/skills/        # Mac / Linux
+```
+```powershell
+git clone https://github.com/isanthoshgandhi/santhoshstack.git
+Copy-Item -Recurse santhoshstack\skills\* $env:USERPROFILE\.claude\skills\   # Windows
+```
+
+Verify:
 ```bash
 claude skills list
 ```
 
-You should see the skill name in the list. No restart needed.
-
----
-
-### Which skills should I install?
-
-| Skill | Install if... |
-|---|---|
-| `context-manager` | You work on multiple projects and lose context between sessions |
-| `frugal-token-usage` | You want tighter token discipline mid-session |
-| `foresight-intelligence` | You do strategic thinking, scenario planning, or prediction work |
-
----
-
-## How to use a skill
-
-After installing, invoke in Claude Code by typing the skill name as a slash command:
-
-```
-/context-manager
-/frugal-token-usage
-/foresight-intelligence
-```
-
-Or just describe what you want — Claude will trigger the right skill automatically based on what you say.
-
----
-
-## Recommended: Add rules to CLAUDE.md
-
-Skills are on-demand. For rules you want always active, add them to `~/.claude/CLAUDE.md`.
-
-The frugal rules in particular are more effective as permanent standing orders than as a skill you have to remember to invoke.
-
-**Trade-off:** Rules in CLAUDE.md apply to every session and every project — including casual conversations where you may not want strict token discipline. Skills are opt-in. Pick based on how you work.
-
-A starter CLAUDE.md is in [`claude.md.example`](./claude.md.example).
+No restart needed.
 
 ---
 
