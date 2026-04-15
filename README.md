@@ -20,26 +20,82 @@ I'm not a software engineer. I'm sharing what I'm exploring as someone who came 
 
 ---
 
+## Skills
+
+| Skill | What it does |
+|---|---|
+| `context-manager` | Three-layer context system for any project. SETUP builds `docs/context/` so any AI tool can resume without re-reading everything. RESUME detects how long you've been away and loads the right amount of context. UPDATE saves progress and distills sessions into long-term learnings. Works with Claude, Codex, Cursor, Windsurf. |
+| `frugal-token-usage` | Mid-session audit. Stops unnecessary Bash, enforces dedicated tools, cuts verbose responses. |
+| `foresight-intelligence` | Strategic foresight using IFTF methodology. Two modes: Soft Predict (instant, works on claude.ai) and Hard Predict (deterministic Python pipeline, identical output every run). Say `hard predict: [question]` for the deterministic mode. |
+
+More skills added as I build them.
+
+---
+
 ## Install
+
+### Option A — Install all skills at once
 
 ```bash
 claude plugin marketplace add isanthoshgandhi/santhoshstack
 claude plugin install santhoshstack
 ```
 
-Or copy any skill directly into `~/.claude/skills/`.
+This installs all skills from this repo into `~/.claude/skills/`.
 
 ---
 
-## Skills
+### Option B — Install a single skill
 
-| Skill | What it does |
+Pick only what you need. Each skill is standalone.
+
+**1. Clone or download this repo:**
+```bash
+git clone https://github.com/isanthoshgandhi/santhoshstack.git
+```
+
+**2. Copy the skill folder to your Claude skills directory:**
+
+Mac / Linux:
+```bash
+cp -r santhoshstack/skills/context-manager ~/.claude/skills/
+```
+
+Windows (PowerShell):
+```powershell
+Copy-Item -Recurse santhoshstack\skills\context-manager $env:USERPROFILE\.claude\skills\
+```
+
+**3. Verify it's available:**
+```bash
+claude skills list
+```
+
+You should see the skill name in the list. No restart needed.
+
+---
+
+### Which skills should I install?
+
+| Skill | Install if... |
 |---|---|
-| `context-manager` | Sets up `docs/context/` so any AI tool can resume any project without re-reading everything. Three modes: SETUP, RESUME, UPDATE. Works with Claude, Codex, Cursor, Windsurf. |
-| `frugal-token-usage` | Mid-session audit. Stops unnecessary Bash, enforces dedicated tools, cuts verbose responses. |
-| `foresight-intelligence` | Strategic foresight using IFTF methodology. Two modes in one skill: Soft Predict (instant, works on claude.ai) and Hard Predict (deterministic Python pipeline, identical output every run). Say `hard predict: [question]` to use the deterministic mode. |
+| `context-manager` | You work on multiple projects and lose context between sessions |
+| `frugal-token-usage` | You want tighter token discipline mid-session |
+| `foresight-intelligence` | You do strategic thinking, scenario planning, or prediction work |
 
-More skills added as I build them.
+---
+
+## How to use a skill
+
+After installing, invoke in Claude Code by typing the skill name as a slash command:
+
+```
+/context-manager
+/frugal-token-usage
+/foresight-intelligence
+```
+
+Or just describe what you want — Claude will trigger the right skill automatically based on what you say.
 
 ---
 

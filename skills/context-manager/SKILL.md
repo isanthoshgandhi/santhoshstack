@@ -5,10 +5,10 @@ description: >
   a new project, onboarding onto an existing codebase, resuming work after a session
   gap, ending a session and wanting to save progress, or when context is running low
   mid-session. Sets up a docs/context/ system that any AI tool can read (Claude,
-  Codex, Cursor, Windsurf, Antigravity). Three modes: SETUP (first time), RESUME
-  (session start), UPDATE (session end). Trigger on: "set up context", "resume project",
-  "update context", "end session", "context manager", "save progress", "continue from
-  where we left off", or when starting work on any large multi-domain project.
+  Codex, Cursor, Windsurf). Three modes: SETUP (first time), RESUME (session start),
+  UPDATE (session end). Trigger on: "set up context", "resume project", "update context",
+  "end session", "context manager", "save progress", "continue from where we left off",
+  or when starting work on any large multi-domain project.
 ---
 
 # Context Manager
@@ -18,6 +18,24 @@ resume any project without re-reading everything.
 
 **Core principle:** You avoid large context by designing a system that only uses
 small context at any time. Global rules + domain scoping + minimal context per task.
+
+**Three-layer architecture:**
+```
+Layer 3 — Knowledge     cross-project, distilled, long-lived  (~/.claude/knowledge/)
+Layer 2 — Project       cross-session, time-aware             (docs/sessions/, docs/backlog/)
+Layer 1 — Session       per-session context                   (docs/context/)
+```
+
+Each layer builds on the one below. Don't skip ahead.
+
+**Storage roots:**
+```
+Layer 1 + 2 → {project-root}/docs/        ← inside each repo
+Layer 3      → ~/.claude/knowledge/        ← outside repos, persistent across all projects
+```
+
+> `~` resolves to your home directory on all platforms (Mac/Linux: `/home/{user}`, Windows: `C:\Users\{user}`).
+> You can change the Layer 3 path to any persistent location you prefer — just use it consistently.
 
 ---
 
@@ -38,29 +56,26 @@ When ambiguous, ask: "Set up fresh, resume work, or save and wrap up?"
 ## SETUP mode — Build the context system from scratch
 
 Use this when the project has no `docs/context/` folder yet.
-This is what we build — not a chatbot wrapper, a file-based system any tool can read.
 
 ### Step 1 — Audit the project
 
 Read the project root. Look for:
 - Existing docs (README, CONTEXT.md, CHANGELOG, any markdown)
-- Code structure (what are the main concerns — frontend, backend, crawler, API, etc.)
+- Code structure (main concerns — frontend, backend, crawler, API, etc.)
 - Git history (`git log --oneline -20`) — what has been worked on recently
 - Any existing notes, backlogs, or decision records
 
 Ask the user: "What are the main domains of work in this project?"
-Examples: frontend, backend, data, API, auth, payments, infrastructure, mobile
+Examples: corpus/ingestion, product/UI, schema/database, algorithm/ranking, frontend, backend
 
 ### Step 2 — Design the structure (fit the project, don't impose)
 
-Every project is different. The structure should emerge from the project's actual shape,
-not be forced onto it. Ask yourself:
+Every project is different. Ask yourself:
 
-- How many distinct concerns does this project have? (1 → flat; 5+ → subfolders)
+- How many distinct concerns? (1 → flat; 5+ → subfolders)
 - Does it have operational logs worth keeping? (long-running → yes; small script → no)
 - Is there a backlog worth tracking? (active development → yes; maintenance → maybe not)
-- Is there research or reference material? (data-heavy → yes; CRUD app → probably not)
-- Will multiple people or tools work on it? (yes → more structure; solo → less)
+- Will multiple tools work on it? (yes → more structure; solo → less)
 
 **The only fixed requirement across all projects:**
 
@@ -78,7 +93,7 @@ Everything else is optional and scales with project complexity.
 docs/
 └── context/
     ├── pointers.md
-    └── main.md               ← single context file is fine
+    └── main.md
 ```
 
 **Medium project (2–4 domains, active development):**
@@ -88,6 +103,8 @@ docs/
 │   ├── pointers.md
 │   ├── {domain-1}.md
 │   └── {domain-2}.md
+├── sessions/
+│   └── SESSIONS.md
 └── backlog/
     └── BACKLOG.md
 ```
@@ -95,27 +112,23 @@ docs/
 **Large project (multiple domains, long-running, multi-tool):**
 ```
 {project-root}/
-├── CONTEXT.md                 ← master map at root (only needed when many subfolders exist)
 └── docs/
     ├── context/               ← session bootstrap (always)
     │   ├── pointers.md
     │   └── {domain}.md per domain
-    ├── sessions/              ← append-only run logs
+    ├── sessions/              ← append-only run logs with timing
     ├── changelog/             ← one merged changelog
     ├── backlog/               ← cross-domain pending work
     ├── {domain}/              ← deep technical docs (not loaded by default)
-    ├── feedback/              ← audit notes from any AI tool or human reviewer
-    │                            (ask Codex, Cursor, Antigravity to audit → save here)
     └── research/              ← deep reference (load only when asked)
 ```
 
 **Fit the structure to reality, not the other way around.**
-If a folder has no content yet, don't create it. Add structure when you need it.
-The goal is to reduce cognitive load, not add ceremony.
+If a folder has no content, don't create it. Add structure when you need it.
 
 ### Step 3 — Write pointers.md
 
-This is the single entry point for every session and every AI tool.
+Single entry point for every session and every AI tool.
 
 ```markdown
 # [Project Name] — Session Pointers
@@ -124,7 +137,8 @@ This is the single entry point for every session and every AI tool.
 > Pick your domain. Load ONLY the 2–3 files listed. Never load everything.
 
 ## QUICK RESUME
-Last session: {date}
+Last session: {YYYY-MM-DD HH:MM}
+Gap since last session: {auto-calculated on resume}
 Where we left off: {1–2 sentences}
 Next action: {specific next step}
 
@@ -152,25 +166,25 @@ Skip: all other domain files, sessions history, changelog
 | `docs/sessions/SESSIONS.md` | Historical logs — only if debugging a specific past run |
 | `docs/changelog/CHANGELOG.md` | Change history — only if asked |
 | `docs/research/` | Deep reference — load only if asked |
+| `~/.claude/knowledge/` | Long-term store — only if gap > 14 days |
 ```
 
 ### Step 4 — Write domain context files
 
 One file per domain at `docs/context/{domain}.md`.
 
-Each file must have this structure:
-
 ```markdown
 # {Domain} Context — Current State
 
 > Domain: {domain}
-> Updated: {date}
+> Updated: {YYYY-MM-DD HH:MM}
+> Staleness threshold: 14 days
 > READ THIS FIRST — contains full resume state
 
 ---
 
 ## RESUME FROM HERE
-Last session: {date}
+Last session: {YYYY-MM-DD HH:MM}
 What was done: {bullet points}
 Current state: {one sentence — specific numbers/status}
 Open bugs: {list with status}
@@ -196,18 +210,24 @@ Next action: {single most important next step — specific enough to act on}
 
 ### Step 5 — Create operational files
 
-**`docs/sessions/SESSIONS.md`** — start with format template:
+**`docs/sessions/SESSIONS.md`** — with timing:
 ```markdown
 # Sessions Log
-> Append only. One entry per session.
+> Append only. One entry per session. Include timing always.
 
-## {YYYY-MM-DD} (Session 1)
+## {YYYY-MM-DD} Session {N}
+**Start:** {HH:MM}
+**End:** {HH:MM}
+**Duration:** {Xh Ym}
+**Gap since last session:** {X days / first session}
+**Domain:** {domain}
 **What was done:** {bullets}
 **Issues hit:** {list}
+**Decisions made:** {list}
 **Next:** {next action}
 ```
 
-**`docs/backlog/BACKLOG.md`** — organize by domain + priority:
+**`docs/backlog/BACKLOG.md`:**
 ```markdown
 # Backlog
 > Cross-domain. Add items from any session. Move to changelog when done.
@@ -225,41 +245,89 @@ Next action: {single most important next step — specific enough to act on}
 {items with reason}
 ```
 
-**`docs/changelog/CHANGELOG.md`** — one file, all changes:
+**`docs/changelog/CHANGELOG.md`:**
 ```markdown
 # Changelog
-> All changes — product, system, pipeline. Most recent first.
+> All changes. Most recent first.
 
 ## Unreleased
 ### {Domain}
 - {change}
 
-## {date}
+## {YYYY-MM-DD}
 {completed changes}
 ```
 
-### Step 5b — Decide where context files live
+### Step 6 — Bootstrap the knowledge store
 
-Before creating any files, check repo visibility:
+Check if `~/.claude/knowledge/` exists. If not, create it.
 
-- **Private repo** → create `docs/context/` inside the project root as normal. Context stays here.
-- **Public repo** → do NOT create `docs/context/` inside the repo. Create it in the private workspace at `D:\Claude\claude-workspace\projects\{repo-name}\docs\context\` instead.
-- **Repo going public** → strip `docs/context/`, session logs, `CLAUDE.md` from the repo first. Move them to `D:\Claude\claude-workspace\projects\{repo-name}\`. Then proceed with making it public.
+> You can use any persistent path outside your repos. `~/.claude/knowledge/` is the default.
+> If you prefer a dedicated workspace folder, use that consistently and update the paths
+> in pointers.md and the RESUME/UPDATE steps below.
 
-Public repos get skills only — never context, session logs, or build history.
+```
+~/.claude/knowledge/
+├── index.md                   ← global index of all projects + learnings
+├── patterns.md                ← recurring patterns across projects
+├── global-backlog.md          ← cross-project backlog
+└── projects/
+    └── {project-slug}/
+        └── learnings.md       ← distilled from SESSIONS.md (created on first distillation)
+```
 
-### Step 6 — Wire up memory
-
-Update `~/.claude/projects/.../memory/` files to point to `docs/context/`:
-
-For each existing memory file related to this project, replace the content with:
+**`~/.claude/knowledge/index.md`:**
 ```markdown
----
-name: {project} — {domain}
-description: {one line}
-type: project
----
+# Knowledge Index
 
+> Cross-project learnings. Updated by context-manager on distillation.
+> Never load in full — pick relevant project or pattern only.
+
+## Projects
+| Project | Slug | Last distilled | Root |
+|---|---|---|---|
+| {name} | {slug} | {date} | {path} |
+
+## Top patterns (load patterns.md for full list)
+- {pattern 1}
+- {pattern 2}
+```
+
+**`~/.claude/knowledge/patterns.md`:**
+```markdown
+# Cross-Project Patterns
+
+> Recurring issues, solutions, and decisions across all projects.
+> Add during distillation. Weight by recency — recent entries matter more.
+
+## Pattern: {name}
+**Seen in:** {project list}
+**Last seen:** {date}
+**Context:** {what triggers this}
+**Solution:** {what worked}
+**Anti-pattern:** {what didn't work}
+```
+
+**`~/.claude/knowledge/global-backlog.md`:**
+```markdown
+# Global Backlog
+
+> Cross-project items. Link to project backlog for details.
+
+## Active
+| Item | Project | Added | Priority |
+|---|---|---|---|
+
+## Deferred
+| Item | Project | Reason |
+|---|---|---|
+```
+
+### Step 7 — Wire up memory
+
+Update `~/.claude/projects/.../memory/` files:
+
+```markdown
 ## Source of truth
 `docs/context/{domain}.md` — always read this, not this file.
 
@@ -267,9 +335,10 @@ type: project
 - Status: {current status}
 - Next: {next action}
 - Project root: {path}
+- Knowledge store: `~/.claude/knowledge/projects/{slug}/learnings.md`
 ```
 
-Update `MEMORY.md` session bootstrap section:
+Update `MEMORY.md` session bootstrap:
 ```markdown
 Any session working on {Project} must:
 1. Read `docs/context/pointers.md` FIRST
@@ -277,54 +346,97 @@ Any session working on {Project} must:
 3. Do NOT load all memory files — they are stale pointers only
 ```
 
-### Step 7 — Commit and tell the user
+### Step 8 — Wire up cross-tool config
+
+**Cursor** — create or append `.cursorrules` at project root:
+```
+Context entry point: docs/context/pointers.md
+Load this file first. Pick your domain. Load only 2-3 files listed.
+Never load docs/sessions/ or docs/research/ unless explicitly asked.
+```
+
+**Windsurf** — create `.windsurfcontext` at project root:
+```
+entry: docs/context/pointers.md
+```
+
+**Codex / any other tool** — add to project README under a `## For AI Tools` section:
+```markdown
+## For AI Tools
+Read `docs/context/pointers.md` first. Pick your domain. Load only what it lists.
+```
+
+### Step 9 — Commit
 
 ```bash
-git add docs/context/ docs/sessions/ docs/changelog/ docs/backlog/
+git add docs/context/ docs/sessions/ docs/changelog/ docs/backlog/ .cursorrules
 git commit -m "docs: add context management system"
 git push
 ```
 
 Tell the user:
 > "Context system created. Start every future session with `/context-manager`.
-> Other AI tools (Codex, Cursor, Windsurf) can read `docs/context/pointers.md`
-> directly — point them at that file as the project entry point."
+> Cross-tool config written to `.cursorrules`. Knowledge store at `~/.claude/knowledge/`."
 
 ---
 
 ## RESUME mode — Load minimal context for session start
 
-### Step 1 — Find and read pointers.md
-Look for `docs/context/pointers.md`. Read only that file first.
-Check the QUICK RESUME block — this alone may be enough for simple continuations.
+### Step 1 — Find pointers.md (with fallback)
 
-### Step 2 — Match domain to user's task
-Read the domain list in `pointers.md`, then map the user's task using these signals:
+Look for `docs/context/pointers.md`.
 
-| Task signals | Likely domain |
-|---|---|
-| UI, design, screens, components, layout | frontend / product |
-| API, endpoints, server, logic, processing | backend / services |
-| Database, schema, migrations, queries, storage | data / schema |
-| Ingestion, pipeline, sync, imports, batch jobs | data / pipeline |
-| Auth, permissions, roles, sessions | auth / security |
-| Deploy, infra, CI, environment, config | infrastructure |
-| Ranking, scoring, recommendations, intelligence | algorithm / ML |
-| Payments, billing, subscriptions | payments |
+**If it doesn't exist:**
+- Check for `CONTEXT.md` at project root — may be old format
+- Check for any `.md` in `docs/context/` — load whatever exists
+- If nothing found: tell the user "No context system found. Run SETUP mode first, or point me at your context files."
+- Do NOT proceed blind
 
-Match to the domain names actually defined in `pointers.md` — these are just common patterns.
-If the task spans multiple domains, pick the primary one.
-If unclear, load only the QUICK RESUME block and ask: "Which area — {list domain names from pointers.md}?"
+**If it exists:** read it.
 
-### Step 3 — Load 2–3 files only
-Load exactly what pointers.md says for that domain. Nothing extra.
+### Step 2 — Calculate gap and set resume depth
+
+From the `Last session` timestamp in QUICK RESUME, calculate gap to today.
+
+| Gap | Resume depth | What to load |
+|---|---|---|
+| < 2 days | Warm | QUICK RESUME block only — skip domain file |
+| 2–14 days | Normal | QUICK RESUME + domain context file |
+| 14–60 days | Deep | QUICK RESUME + domain file + skim last 3 sessions |
+| > 60 days | Cold | Deep resume + check knowledge store + flag for distillation |
+
+If no timestamp exists (old format), treat as Normal depth.
+
+### Step 3 — Check domain file staleness
+
+Read the `Updated:` timestamp from the domain context file.
+If it's older than 14 days, warn: "Domain file last updated {X} days ago — may be stale. Verify current state before acting."
+
+### Step 4 — Match domain to user's task
+
+- Crawling, scraping, pipeline, data → corpus/ingestion domain
+- UI, tabs, product decisions, design → product domain
+- Database, schema, import, search → schema/data domain
+- Ranking, algorithm, intelligence → algorithm domain
+- Unclear → load QUICK RESUME only, ask user to clarify
+
+### Step 5 — Load files per depth
+
+Load exactly what the depth table says. Nothing extra.
 If a listed file doesn't exist, note it and continue.
 
-### Step 4 — Show resume summary
+For Cold resume: also read `~/.claude/knowledge/projects/{slug}/learnings.md` if it exists.
+Surface any patterns from `~/.claude/knowledge/patterns.md` relevant to the current domain.
+
+### Step 6 — Show resume summary
+
 ```
 Resuming: [domain] on [project]
-Where we left off: [1–2 sentences from RESUME FROM HERE block]
-Open issues: [any blockers]
+Gap: [X days since last session]
+Resume depth: [Warm / Normal / Deep / Cold]
+Where we left off: [1–2 sentences]
+Staleness warning: [if applicable]
+Relevant past patterns: [if Cold resume and patterns found]
 Next action: [the specific next step]
 ```
 
@@ -334,35 +446,119 @@ Wait for user confirmation before starting work.
 
 ## UPDATE mode — Save progress at session end
 
-### Step 1 — Detect what changed
-Run `git diff HEAD` and scan the conversation for:
+### Step 1 — Record session end time
+
+Note the current time. Calculate duration from session start (ask user if start time unknown).
+
+### Step 2 — Detect what changed
+
+Run `git diff HEAD` — scan for changed files, not full diff content.
+Scan the conversation for:
 - Bugs found and fixed (with commit hashes)
 - Decisions made
 - Tasks completed / abandoned
 - New open questions or blockers
-- Current numbers/stats (records processed, tests passing, coverage, etc.)
+- Current numbers/stats
 
-### Step 2 — Update domain context file
-Edit `docs/context/{domain}.md`. Surgical edits only — don't rewrite everything.
+**Handling large diffs:** if `git diff HEAD` is large (>50 files or >500 lines), don't read it all.
+Instead: `git diff HEAD --stat` to get file-level summary, then read only files relevant to the current domain.
 
-Always update the **RESUME FROM HERE** block at the top with today's date,
-what was done, current state, open bugs, and next action.
-Update any stale numbers elsewhere in the file.
+### Step 3 — Update domain context file
 
-### Step 3 — Update pointers.md QUICK RESUME block
-Update the date, where we left off, and next action.
+Edit `docs/context/{domain}.md`. Surgical edits only.
 
-### Step 4 — Append to sessions log
-Add entry to `docs/sessions/SESSIONS.md`.
+Always update:
+- `Updated:` timestamp at top
+- `RESUME FROM HERE` block — date, what was done, current state, open bugs, next action
+- Any stale numbers elsewhere in the file
 
-### Step 5 — Add backlog items
-For each finding or deferred item, add to `docs/backlog/BACKLOG.md`.
+### Step 4 — Update pointers.md QUICK RESUME block
+
+Update: date+time, where we left off, next action.
+
+### Step 5 — Append to sessions log
+
+Add entry to `docs/sessions/SESSIONS.md` with full timing:
+
+```markdown
+## {YYYY-MM-DD} Session {N}
+**Start:** {HH:MM}
+**End:** {HH:MM}
+**Duration:** {Xh Ym}
+**Gap since last session:** {X days}
+**Domain:** {domain}
+**What was done:** {bullets}
+**Issues hit:** {list}
+**Decisions made:** {list}
+**Next:** {next action}
+```
+
+### Step 6 — Add backlog items
+
+For each deferred item or open question, add to `docs/backlog/BACKLOG.md`.
 Do not duplicate existing items.
+If item is cross-project relevant, also add to `~/.claude/knowledge/global-backlog.md`.
 
-### Step 6 — Update memory pointer files
+### Step 7 — Check distillation trigger
+
+Count entries in `docs/sessions/SESSIONS.md`.
+Calculate gap since last distillation (check `~/.claude/knowledge/projects/{slug}/learnings.md` header).
+
+**Trigger distillation if ANY of:**
+- Sessions log has > 20 entries since last distillation
+- Gap since last distillation > 30 days
+- This is a Cold resume (gap > 60 days)
+
+If triggered, run distillation (Step 8). Otherwise skip to Step 9.
+
+### Step 8 — Distillation (when triggered)
+
+Read all sessions since last distillation from `SESSIONS.md`.
+Do NOT read old sessions — only new ones since last distillation date.
+
+Extract:
+- Recurring issues (same problem appeared 2+ times → pattern)
+- Key decisions with rationale
+- Resolved bugs (title + fix approach, no code)
+- What was deferred and why
+- Velocity signal (avg session duration, cadence)
+
+Weight by recency: entries from last 7 days count double. Entries > 6 months old, halve.
+
+Write / update `~/.claude/knowledge/projects/{slug}/learnings.md`:
+
+```markdown
+# {Project} — Distilled Learnings
+
+> Last distilled: {YYYY-MM-DD}
+> Sessions covered: {N} sessions from {start-date} to {end-date}
+> Velocity: avg {X} min/session, {Y} sessions/month
+
+## Key Decisions
+- {decision} — {rationale} ({date})
+
+## Recurring Patterns
+- {pattern} — seen {N} times, last {date}
+
+## Resolved Issues
+- {issue} — fixed by {approach} ({date})
+
+## Deferred Items
+- {item} — reason: {why} ({date})
+
+## Watch: Still open
+- {issue still unresolved}
+```
+
+Update `~/.claude/knowledge/patterns.md` — add or update any patterns that appeared 2+ times.
+Update `~/.claude/knowledge/index.md` — update last distilled date for this project.
+
+### Step 9 — Update memory pointer files
+
 Keep memory files lean — 5–10 lines pointing to docs/context/.
 
-### Step 7 — Commit and push
+### Step 10 — Commit and push
+
 ```bash
 git add docs/context/ docs/sessions/ docs/backlog/
 git commit -m "docs: context update {date} — {one line summary}"
@@ -373,15 +569,25 @@ git push
 
 ## Cross-tool compatibility
 
-Context files are plain markdown in `docs/context/`. Any AI tool can read them:
+Context files are plain markdown in `docs/context/`. Any AI tool can read them.
 
-| Tool | How to use |
-|---|---|
-| Claude Code | `/context-manager` at session start/end |
-| Codex | Point at `docs/context/pointers.md` as project entry |
-| Cursor | Add `docs/context/` to `.cursorrules` or Cursor context |
-| Windsurf | Add `docs/context/pointers.md` to context window |
-| Any tool | Read `pointers.md` → pick domain → load 2–3 files |
+**Claude Code:** `/context-manager` at session start/end.
+
+**Cursor:**
+- `.cursorrules` at project root (written by SETUP) routes to `docs/context/pointers.md`
+- No manual config needed after SETUP
+
+**Windsurf:**
+- `.windsurfcontext` at project root (written by SETUP)
+- Or: File → Add to context → select `docs/context/pointers.md`
+
+**Codex:**
+- Pass `docs/context/pointers.md` as the system context file
+- Or reference it in your Codex project instructions
+
+**Any tool:**
+- Read `pointers.md` → pick domain → load 2–3 files
+- Never load sessions/, research/, or knowledge store by default
 
 **Never put Claude-specific syntax in context files.** No memory frontmatter,
 no tool directives — just plain markdown that any tool can parse.
@@ -391,8 +597,12 @@ no tool directives — just plain markdown that any tool can parse.
 ## Context slicing rules (non-negotiable)
 
 1. Never load full history
-2. Max 2–3 files per session
+2. Max 2–3 files per session (knowledge store = +1 file on Cold resume only)
 3. Prefer structured data over prose
 4. Drop redundancy — if it's in the code, don't duplicate in context
 5. Compress before adding — update existing files, don't append forever
 6. pointers.md is the only file that routes — never bypass it
+7. Session timing is mandatory — every entry must have start, end, duration
+8. Distill before the log grows unreadable — trigger at 20 entries or 30 days
+9. Knowledge store is read-only during RESUME — only written during UPDATE distillation
+10. Gap determines depth — never load deep context for a warm resume
