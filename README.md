@@ -24,6 +24,28 @@ I'm not a software engineer. I'm sharing what I'm exploring as someone who came 
 
 > Requires [Claude Code](https://claude.ai/code) to be installed.
 
+### The AI-native way
+
+Just tell Claude Code what you want:
+
+```
+Install the context-manager skill from github.com/isanthoshgandhi/santhoshstack
+```
+
+```
+Install the frugal-token-usage skill from github.com/isanthoshgandhi/santhoshstack
+```
+
+```
+Install the foresight-intelligence skill from github.com/isanthoshgandhi/santhoshstack
+```
+
+Claude will clone the repo and copy the skill into `~/.claude/skills/` automatically. No commands, no paths, no platform differences.
+
+---
+
+### Manual install (fallback)
+
 **Step 1 — Clone this repo once**
 
 ```bash
@@ -101,6 +123,12 @@ Or say: *"predict: [question]"* for Soft mode · *"hard predict: [question]"* fo
 
 ## Install all skills at once
 
+AI-native:
+```
+Install all skills from github.com/isanthoshgandhi/santhoshstack
+```
+
+Or manually:
 ```bash
 git clone https://github.com/isanthoshgandhi/santhoshstack.git
 cp -r santhoshstack/skills/* ~/.claude/skills/        # Mac / Linux
