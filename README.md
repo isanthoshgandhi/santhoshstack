@@ -22,20 +22,28 @@ I'm not a software engineer. I'm sharing what I'm exploring as someone who came 
 
 ## Skills
 
+> Requires [Claude Code](https://claude.ai/code) to be installed.
+
+**Step 1 — Clone this repo once**
+
+```bash
+git clone https://github.com/isanthoshgandhi/santhoshstack.git
+```
+
+**Step 2 — Copy the skill(s) you want**
+
+---
+
 ### context-manager
 
 Three-layer context system for any project. SETUP builds `docs/context/` so any AI tool can resume without re-reading everything. RESUME detects how long you've been away and loads the right amount of context. UPDATE saves progress and distills sessions into long-term learnings. Works with Claude, Codex, Cursor, Windsurf.
 
-**Install**
-
 Mac / Linux:
 ```bash
-git clone https://github.com/isanthoshgandhi/santhoshstack.git
 cp -r santhoshstack/skills/context-manager ~/.claude/skills/
 ```
 Windows (PowerShell):
 ```powershell
-git clone https://github.com/isanthoshgandhi/santhoshstack.git
 Copy-Item -Recurse santhoshstack\skills\context-manager $env:USERPROFILE\.claude\skills\
 ```
 
@@ -51,16 +59,12 @@ Or say: *"set up context for this project"* / *"resume"* / *"save session"*
 
 Mid-session audit. Stops unnecessary Bash, enforces dedicated tools, cuts verbose responses. Run it when a session feels bloated or slow.
 
-**Install**
-
 Mac / Linux:
 ```bash
-git clone https://github.com/isanthoshgandhi/santhoshstack.git
 cp -r santhoshstack/skills/frugal-token-usage ~/.claude/skills/
 ```
 Windows (PowerShell):
 ```powershell
-git clone https://github.com/isanthoshgandhi/santhoshstack.git
 Copy-Item -Recurse santhoshstack\skills\frugal-token-usage $env:USERPROFILE\.claude\skills\
 ```
 
@@ -78,16 +82,12 @@ Or say: *"be frugal"* / *"reduce token usage"*
 
 Strategic foresight using IFTF methodology. Two modes — Soft Predict (instant, works on claude.ai and Claude Code) and Hard Predict (deterministic Python pipeline, identical output every run).
 
-**Install**
-
 Mac / Linux:
 ```bash
-git clone https://github.com/isanthoshgandhi/santhoshstack.git
 cp -r santhoshstack/skills/foresight-intelligence ~/.claude/skills/
 ```
 Windows (PowerShell):
 ```powershell
-git clone https://github.com/isanthoshgandhi/santhoshstack.git
 Copy-Item -Recurse santhoshstack\skills\foresight-intelligence $env:USERPROFILE\.claude\skills\
 ```
 
@@ -110,9 +110,12 @@ git clone https://github.com/isanthoshgandhi/santhoshstack.git
 Copy-Item -Recurse santhoshstack\skills\* $env:USERPROFILE\.claude\skills\   # Windows
 ```
 
-Verify:
+Verify the files are in place:
 ```bash
-claude skills list
+ls ~/.claude/skills/       # Mac / Linux
+```
+```powershell
+ls $env:USERPROFILE\.claude\skills\   # Windows
 ```
 
 No restart needed.
