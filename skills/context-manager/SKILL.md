@@ -400,12 +400,14 @@ From the `Last session` timestamp in QUICK RESUME, calculate gap to today.
 
 | Gap | Resume depth | What to load |
 |---|---|---|
-| < 2 days | Warm | QUICK RESUME block only — skip domain file |
+| < 2 days | Warm | QUICK RESUME + domain context file |
 | 2–14 days | Normal | QUICK RESUME + domain context file |
 | 14–60 days | Deep | QUICK RESUME + domain file + skim last 3 sessions |
 | > 60 days | Cold | Deep resume + check knowledge store + flag for distillation |
 
 If no timestamp exists (old format), treat as Normal depth.
+
+**Always load the domain file — even on warm resumes.** QUICK RESUME alone is not enough for hands-on work. It lacks critical non-obvious facts (source of truth files, dropped services, tooling constraints) that live in the domain file. Skipping the domain file on warm resumes causes repeated mistakes that the user has to correct.
 
 ### Step 3 — Check domain file staleness
 
@@ -605,4 +607,4 @@ no tool directives — just plain markdown that any tool can parse.
 7. Session timing is mandatory — every entry must have start, end, duration
 8. Distill before the log grows unreadable — trigger at 20 entries or 30 days
 9. Knowledge store is read-only during RESUME — only written during UPDATE distillation
-10. Gap determines depth — never load deep context for a warm resume
+10. Always load the domain file — gap determines whether to also load sessions/knowledge store, not whether to load the domain file
