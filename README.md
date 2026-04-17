@@ -22,54 +22,11 @@ I'm not a software engineer. I'm sharing what I'm exploring as someone who came 
 
 ## Skills
 
-> Requires [Claude Code](https://claude.ai/code) to be installed.
-
-### The AI-native way
-
-Just tell Claude Code what you want:
-
-```
-Install the context-manager skill from github.com/isanthoshgandhi/santhoshstack
-```
-
-```
-Install the frugal-token-usage skill from github.com/isanthoshgandhi/santhoshstack
-```
-
-```
-Install the foresight-intelligence skill from github.com/isanthoshgandhi/santhoshstack
-```
-
-Claude will clone the repo and copy the skill into `~/.claude/skills/` automatically. No commands, no paths, no platform differences.
-
----
-
-### Manual install (fallback)
-
-**Step 1 — Clone this repo once**
-
-```bash
-git clone https://github.com/isanthoshgandhi/santhoshstack.git
-```
-
-**Step 2 — Copy the skill(s) you want**
-
----
-
 ### context-manager
 
 Three-layer context system for any project. SETUP builds `docs/context/` so any AI tool can resume without re-reading everything. RESUME detects how long you've been away and loads the right amount of context. UPDATE saves progress and distills sessions into long-term learnings. Works with Claude, Codex, Cursor, Windsurf.
 
-Mac / Linux:
-```bash
-cp -r santhoshstack/skills/context-manager ~/.claude/skills/
-```
-Windows (PowerShell):
-```powershell
-Copy-Item -Recurse santhoshstack\skills\context-manager $env:USERPROFILE\.claude\skills\
-```
-
-**Use**
+**Invoke**
 ```
 /context-manager
 ```
@@ -81,16 +38,7 @@ Or say: *"set up context for this project"* / *"resume"* / *"save session"*
 
 Mid-session audit. Stops unnecessary Bash, enforces dedicated tools, cuts verbose responses. Run it when a session feels bloated or slow.
 
-Mac / Linux:
-```bash
-cp -r santhoshstack/skills/frugal-token-usage ~/.claude/skills/
-```
-Windows (PowerShell):
-```powershell
-Copy-Item -Recurse santhoshstack\skills\frugal-token-usage $env:USERPROFILE\.claude\skills\
-```
-
-**Use**
+**Invoke**
 ```
 /frugal-token-usage
 ```
@@ -104,16 +52,7 @@ Or say: *"be frugal"* / *"reduce token usage"*
 
 Strategic foresight using IFTF methodology. Two modes — Soft Predict (instant, works on claude.ai and Claude Code) and Hard Predict (deterministic Python pipeline, identical output every run).
 
-Mac / Linux:
-```bash
-cp -r santhoshstack/skills/foresight-intelligence ~/.claude/skills/
-```
-Windows (PowerShell):
-```powershell
-Copy-Item -Recurse santhoshstack\skills\foresight-intelligence $env:USERPROFILE\.claude\skills\
-```
-
-**Use**
+**Invoke**
 ```
 /foresight-intelligence
 ```
@@ -121,26 +60,63 @@ Or say: *"predict: [question]"* for Soft mode · *"hard predict: [question]"* fo
 
 ---
 
-## Install all skills at once
+## Install
 
-AI-native:
+> Requires [Claude Code](https://claude.ai/code) to be installed.
+
+### AI-native
+
+Just tell Claude Code what you want:
+
+```
+Install the context-manager skill from github.com/isanthoshgandhi/santhoshstack
+```
+```
+Install the frugal-token-usage skill from github.com/isanthoshgandhi/santhoshstack
+```
+```
+Install the foresight-intelligence skill from github.com/isanthoshgandhi/santhoshstack
+```
 ```
 Install all skills from github.com/isanthoshgandhi/santhoshstack
 ```
 
-Or manually:
+Claude will handle the rest. No commands, no paths, no platform differences.
+
+---
+
+### Manual (fallback)
+
+**Clone once:**
 ```bash
 git clone https://github.com/isanthoshgandhi/santhoshstack.git
-cp -r santhoshstack/skills/* ~/.claude/skills/        # Mac / Linux
-```
-```powershell
-git clone https://github.com/isanthoshgandhi/santhoshstack.git
-Copy-Item -Recurse santhoshstack\skills\* $env:USERPROFILE\.claude\skills\   # Windows
 ```
 
-Verify the files are in place:
+**Copy what you need:**
+
+Mac / Linux:
 ```bash
-ls ~/.claude/skills/       # Mac / Linux
+cp -r santhoshstack/skills/context-manager ~/.claude/skills/
+cp -r santhoshstack/skills/frugal-token-usage ~/.claude/skills/
+cp -r santhoshstack/skills/foresight-intelligence ~/.claude/skills/
+
+# or all at once
+cp -r santhoshstack/skills/* ~/.claude/skills/
+```
+
+Windows (PowerShell):
+```powershell
+Copy-Item -Recurse santhoshstack\skills\context-manager $env:USERPROFILE\.claude\skills\
+Copy-Item -Recurse santhoshstack\skills\frugal-token-usage $env:USERPROFILE\.claude\skills\
+Copy-Item -Recurse santhoshstack\skills\foresight-intelligence $env:USERPROFILE\.claude\skills\
+
+# or all at once
+Copy-Item -Recurse santhoshstack\skills\* $env:USERPROFILE\.claude\skills\
+```
+
+**Verify:**
+```bash
+ls ~/.claude/skills/        # Mac / Linux
 ```
 ```powershell
 ls $env:USERPROFILE\.claude\skills\   # Windows
