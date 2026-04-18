@@ -6,6 +6,18 @@ These rules apply to every session, every project.
 
 ## Frugal Token Usage
 
+### Override — Analytical Requests
+When the user says any of the following:
+- "share your thoughts" / "what do you think"
+- "audit [something]"
+- "why does / why did / why is / why are"
+- "explain why"
+
+→ **Response length: unlimited** — give complete reasoning, do not compress or summarize early
+→ **Tool usage: still follow frugal rules** — grep before read, no speculative reads, no redundant tool calls
+
+---
+
 ### Hand off CLI commands — don't run them
 Give the exact command and say "Run this in your terminal." Do NOT run via Bash:
 - Builds, package installs, test runs when outcome is already known
