@@ -137,8 +137,8 @@ Single entry point for every session and every AI tool.
 > Pick your domain. Load ONLY the 2–3 files listed. Never load everything.
 
 ## QUICK RESUME
-Last session: {YYYY-MM-DD HH:MM}
-Gap since last session: {auto-calculated on resume}
+Last session: N/A — first session
+Gap since last session: N/A
 Where we left off: {1–2 sentences}
 Next action: {specific next step}
 
@@ -166,7 +166,7 @@ Skip: all other domain files, sessions history, changelog
 | `docs/sessions/SESSIONS.md` | Historical logs — only if debugging a specific past run |
 | `docs/changelog/CHANGELOG.md` | Change history — only if asked |
 | `docs/research/` | Deep reference — load only if asked |
-| `~/.claude/knowledge/` | Long-term store — only if gap > 14 days |
+| `~/.claude/knowledge/` | Long-term store — only if gap > 60 days |
 ```
 
 ### Step 4 — Write domain context files
@@ -260,7 +260,7 @@ Next action: {single most important next step — specific enough to act on}
 
 ### Step 6 — Bootstrap the knowledge store
 
-Check if `~/.claude/knowledge/` exists. If not, create it.
+Check if `~/.claude/knowledge/` exists. If not, create it now — this is Layer 3 and must exist before any project uses distillation or Cold resume. Do not skip this step.
 
 > You can use any persistent path outside your repos. `~/.claude/knowledge/` is the default.
 > If you prefer a dedicated workspace folder, use that consistently and update the paths
@@ -344,21 +344,24 @@ Any session working on {Project} must:
 1. Read `docs/context/pointers.md` FIRST
 2. Load ONLY the files listed for your domain
 3. Do NOT load all memory files — they are stale pointers only
+4. Gap > 60 days → also load `~/.claude/knowledge/projects/{slug}/learnings.md`
 ```
 
 ### Step 8 — Wire up cross-tool config
 
-**Cursor** — create or append `.cursorrules` at project root:
+**Cursor** — create `.cursor/rules/context.md` at project root (legacy: `.cursorrules`):
 ```
 Context entry point: docs/context/pointers.md
 Load this file first. Pick your domain. Load only 2-3 files listed.
 Never load docs/sessions/ or docs/research/ unless explicitly asked.
 ```
+> Cursor moved from `.cursorrules` to `.cursor/rules/*.md` — check current Cursor docs for your version.
 
-**Windsurf** — create `.windsurfcontext` at project root:
+**Windsurf** — create `.windsurf/rules/context.md` at project root (legacy: `.windsurfcontext`):
 ```
 entry: docs/context/pointers.md
 ```
+> Windsurf moved from `.windsurfcontext` to `.windsurf/rules/` — check current Windsurf docs for your version.
 
 **Codex / any other tool** — add to project README under a `## For AI Tools` section:
 ```markdown
@@ -369,14 +372,14 @@ Read `docs/context/pointers.md` first. Pick your domain. Load only what it lists
 ### Step 9 — Commit
 
 ```bash
-git add docs/context/ docs/sessions/ docs/changelog/ docs/backlog/ .cursorrules
+git add docs/context/ docs/sessions/ docs/changelog/ docs/backlog/ .cursorrules .windsurfcontext .cursor/ .windsurf/
 git commit -m "docs: add context management system"
 git push
 ```
 
 Tell the user:
 > "Context system created. Start every future session with `/context-manager`.
-> Cross-tool config written to `.cursorrules`. Knowledge store at `~/.claude/knowledge/`."
+> Cross-tool config written. Knowledge store at `~/.claude/knowledge/`."
 
 ---
 
@@ -397,17 +400,15 @@ Look for `docs/context/pointers.md`.
 ### Step 2 — Calculate gap and set resume depth
 
 From the `Last session` timestamp in QUICK RESUME, calculate gap to today.
+If no time component (date only), treat as 00:00 for gap calculation. If no timestamp exists (old format), treat as Normal depth.
 
 | Gap | Resume depth | What to load |
 |---|---|---|
-| < 2 days | Warm | QUICK RESUME + domain context file |
-| 2–14 days | Normal | QUICK RESUME + domain context file |
+| < 14 days | Normal | QUICK RESUME + domain context file |
 | 14–60 days | Deep | QUICK RESUME + domain file + skim last 3 sessions |
 | > 60 days | Cold | Deep resume + check knowledge store + flag for distillation |
 
-If no timestamp exists (old format), treat as Normal depth.
-
-**Always load the domain file — even on warm resumes.** QUICK RESUME alone is not enough for hands-on work. It lacks critical non-obvious facts (source of truth files, dropped services, tooling constraints) that live in the domain file. Skipping the domain file on warm resumes causes repeated mistakes that the user has to correct.
+**Always load the domain file — regardless of gap.** QUICK RESUME alone is never sufficient for hands-on work. It lacks critical non-obvious facts (source of truth files, dropped services, tooling constraints) that live in the domain file. Loading only QUICK RESUME has caused repeated mistakes in the same session.
 
 ### Step 3 — Check domain file staleness
 
@@ -420,7 +421,7 @@ If it's older than 14 days, warn: "Domain file last updated {X} days ago — may
 - UI, tabs, product decisions, design → product domain
 - Database, schema, import, search → schema/data domain
 - Ranking, algorithm, intelligence → algorithm domain
-- Unclear → load QUICK RESUME only, ask user to clarify
+- Unclear → load QUICK RESUME + pointers.md, ask user to clarify domain before loading any domain file
 
 ### Step 5 — Load files per depth
 
@@ -435,7 +436,7 @@ Surface any patterns from `~/.claude/knowledge/patterns.md` relevant to the curr
 ```
 Resuming: [domain] on [project]
 Gap: [X days since last session]
-Resume depth: [Warm / Normal / Deep / Cold]
+Resume depth: [Normal / Deep / Cold]
 Where we left off: [1–2 sentences]
 Staleness warning: [if applicable]
 Relevant past patterns: [if Cold resume and patterns found]
@@ -454,7 +455,7 @@ Note the current time. Calculate duration from session start (ask user if start 
 
 ### Step 2 — Detect what changed
 
-Run `git diff HEAD` — scan for changed files, not full diff content.
+Run `git log --oneline -5` to see what was committed this session, then `git show --stat HEAD` for the most recent commit's file summary. Do not use `git diff HEAD` — on a clean workspace after commits it returns nothing.
 Scan the conversation for:
 - Bugs found and fixed (with commit hashes)
 - Decisions made
@@ -462,8 +463,7 @@ Scan the conversation for:
 - New open questions or blockers
 - Current numbers/stats
 
-**Handling large diffs:** if `git diff HEAD` is large (>50 files or >500 lines), don't read it all.
-Instead: `git diff HEAD --stat` to get file-level summary, then read only files relevant to the current domain.
+**Handling large changesets:** if `git show --stat HEAD` shows >50 files, read only files relevant to the current domain.
 
 ### Step 3 — Update domain context file
 
@@ -503,7 +503,7 @@ If item is cross-project relevant, also add to `~/.claude/knowledge/global-backl
 
 ### Step 7 — Check distillation trigger
 
-Count entries in `docs/sessions/SESSIONS.md`.
+Count session entries: `grep -c "^## " docs/sessions/SESSIONS.md`.
 Calculate gap since last distillation (check `~/.claude/knowledge/projects/{slug}/learnings.md` header).
 
 **Trigger distillation if ANY of:**
@@ -525,7 +525,7 @@ Extract:
 - What was deferred and why
 - Velocity signal (avg session duration, cadence)
 
-Weight by recency: entries from last 7 days count double. Entries > 6 months old, halve.
+Prioritize by recency: patterns recurring in the last 7 days → extract first. One-off items older than 6 months → skip unless still marked open.
 
 Write / update `~/.claude/knowledge/projects/{slug}/learnings.md`:
 
@@ -562,7 +562,7 @@ Keep memory files lean — 5–10 lines pointing to docs/context/.
 ### Step 10 — Commit and push
 
 ```bash
-git add docs/context/ docs/sessions/ docs/backlog/
+git add docs/context/ docs/sessions/ docs/backlog/ docs/changelog/
 git commit -m "docs: context update {date} — {one line summary}"
 git push
 ```
@@ -576,12 +576,12 @@ Context files are plain markdown in `docs/context/`. Any AI tool can read them.
 **Claude Code:** `/context-manager` at session start/end.
 
 **Cursor:**
-- `.cursorrules` at project root (written by SETUP) routes to `docs/context/pointers.md`
-- No manual config needed after SETUP
+- `.cursor/rules/context.md` at project root (written by SETUP) routes to `docs/context/pointers.md`
+- Legacy: `.cursorrules` — still works on older versions
 
 **Windsurf:**
-- `.windsurfcontext` at project root (written by SETUP)
-- Or: File → Add to context → select `docs/context/pointers.md`
+- `.windsurf/rules/context.md` at project root (written by SETUP)
+- Legacy: `.windsurfcontext`
 
 **Codex:**
 - Pass `docs/context/pointers.md` as the system context file
