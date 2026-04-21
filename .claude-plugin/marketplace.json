@@ -1,14 +1,14 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "santhoshstack",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "owner": {
     "name": "Santhosh Gandhi",
     "url": "https://github.com/isanthoshgandhi"
   },
   "metadata": {
-    "description": "Personal Claude Code skills by Santhosh Gandhi — context-manager, frugal-token-usage, foresight-intelligence",
-    "version": "1.3.0",
+    "description": "Personal Claude Code skills by Santhosh Gandhi — context-manager, frugal-token-usage, foresight-intelligence, review, whybroken, security-audit",
+    "version": "1.4.0",
     "homepage": "https://github.com/isanthoshgandhi/santhoshstack",
     "repository": "https://github.com/isanthoshgandhi/santhoshstack",
     "license": "MIT",
@@ -17,8 +17,8 @@
   "plugins": [
     {
       "name": "santhoshstack",
-      "description": "Personal Claude Code skills by Santhosh Gandhi. Includes context-manager, frugal-token-usage, and foresight-intelligence.",
-      "version": "1.3.0",
+      "description": "Personal Claude Code skills by Santhosh Gandhi. Includes context-manager, frugal-token-usage, foresight-intelligence, review, whybroken, and security-audit.",
+      "version": "1.4.0",
       "author": {
         "name": "Santhosh Gandhi",
         "url": "https://github.com/isanthoshgandhi"
