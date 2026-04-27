@@ -31,6 +31,7 @@ I'm not a software engineer. I'm sharing what I'm exploring as someone who came 
 | `review` | Production-readiness review. Finds real bugs — logic errors, null access, data loss, auth gaps, race conditions, hardcoded secrets. Prioritised findings with exact `file:line` references. No style feedback. | `/review` |
 | `security-audit` | Security audit covering OWASP Top 10 — injection, auth gaps, secrets in code, missing validation, info leakage, CORS misconfig, missing rate limiting. Each finding includes attack vector and fix. | `/security-audit` |
 | `whybroken` | Root-cause tracer. Forms a hypothesis, follows the execution path to the actual cause, proposes the precise fix. Never patches symptoms. | `/whybroken` |
+| `post-ai-thinking` | Unbiased solution space explorer. Strips inherited human heuristics, enumerates all possible approaches across 7 paradigms (human heuristic, hardware-native, theoretical limits, biology-inspired, economic/incentive, AI-augmented, hybrid), then lets you choose. Auto-calibrates depth — quick scan for tool choices, full space for architecture decisions. Existing solutions are fully included. | `/post-ai-thinking` |
 
 > **Tip for `frugal-token-usage`:** The rules work better as permanent standing orders than on-demand. Copy them into `~/.claude/CLAUDE.md`. A starter file is in [`claude.md.example`](./claude.md.example).
 
@@ -64,6 +65,9 @@ Install the security-audit skill from github.com/isanthoshgandhi/santhoshstack
 ```
 ```
 Install the whybroken skill from github.com/isanthoshgandhi/santhoshstack
+```
+```
+Install the post-ai-thinking skill from github.com/isanthoshgandhi/santhoshstack
 ```
 ```
 Install all skills from github.com/isanthoshgandhi/santhoshstack
