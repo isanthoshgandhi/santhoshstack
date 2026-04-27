@@ -19,14 +19,13 @@ If no time component (date only), treat as 00:00. If no timestamp, treat as Norm
 
 | Gap | Depth | What to load |
 |---|---|---|
-| < 14 days | Normal | QUICK RESUME + domain context file |
-| 14–60 days | Deep | QUICK RESUME + domain file + skim last 3 sessions |
-| > 60 days | Cold | Deep resume + check knowledge store + flag for distillation |
+| < 14 days | Normal | QUICK RESUME + `{domain}.md` + `{domain}-ref.md` |
+| 14–60 days | Deep | Normal + skim last 3 sessions in SESSIONS.md |
+| > 60 days | Cold | Deep + knowledge store + flag for distillation |
 
-**Always load the domain file — regardless of gap.** QUICK RESUME alone is never sufficient
-for hands-on work. It lacks critical non-obvious facts (source of truth files, dropped services,
-tooling constraints) that live in the domain file. Loading only QUICK RESUME has caused
-repeated mistakes in the same session.
+**Always load both domain files — regardless of gap.** `{domain}.md` has resume state.
+`{domain}-ref.md` has what exists, where it lives, how it works, and why it's built this way.
+Neither is sufficient alone. QUICK RESUME alone has caused repeated mistakes in the same session.
 
 ### Step 3 — Check domain file staleness
 
@@ -43,11 +42,15 @@ If older than 14 days, warn: "Domain file last updated {X} days ago — may be s
 
 ### Step 5 — Load files per depth
 
-Load exactly what the depth table says. Nothing extra.
-If a listed file doesn't exist, note it and continue.
+Always load:
+1. `docs/context/{domain}.md` — operational resume state
+2. `docs/context/{domain}-ref.md` — reference (what/where/how/why)
 
-For Cold resume: also read `~/.claude/knowledge/projects/{slug}/learnings.md` if it exists.
-Surface any patterns from `~/.claude/knowledge/patterns.md` relevant to the current domain.
+If `{domain}-ref.md` doesn't exist (pre-v2 context setup), note it and flag to user at the end: "Reference file missing — create it during next UPDATE."
+
+Additional by depth:
+- Deep: also skim last 3 sessions in `docs/sessions/SESSIONS.md`
+- Cold: also read `~/.claude/knowledge/projects/{slug}/learnings.md` if it exists, and surface relevant patterns from `~/.claude/knowledge/patterns.md`
 
 ### Step 6 — Show resume summary
 

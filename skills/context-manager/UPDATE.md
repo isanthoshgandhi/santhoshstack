@@ -29,8 +29,27 @@ Edit `docs/context/{domain}.md`. Surgical edits only.
 
 Always update:
 - `Updated:` timestamp at top
-- `RESUME FROM HERE` block — date, what was done, current state, open bugs, next action
+- `RESUME FROM HERE` block — date, what was done, current state, open bugs, next action, Do NOT list
 - Any stale numbers elsewhere in the file
+
+### Step 3b — Update reference file (if needed)
+
+Check: did any of these change this session?
+- Architecture or data flow
+- File paths or entry points
+- A significant decision was made (with rationale)
+- An alternative was explicitly rejected
+- A new capability was built
+
+If yes → edit `docs/context/{domain}-ref.md`. Surgical edits only.
+- Replace stale entries, do not append
+- Add new decisions to the `## Why it's built this way` section with date
+- Update `## Where it lives` table if paths changed
+- Update `## What exists` if a new feature shipped
+
+If no → skip this step entirely. Do not touch the ref file.
+
+If `{domain}-ref.md` doesn't exist yet → create it now using the template from SETUP.md Step 4.
 
 ### Step 4 — Update pointers.md QUICK RESUME block
 

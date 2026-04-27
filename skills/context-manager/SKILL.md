@@ -16,7 +16,11 @@ description: >
 Sets up and maintains a minimal, tool-agnostic context system so any AI tool can
 resume any project without re-reading everything.
 
-**Core principle:** Global rules + domain scoping + minimal context per task.
+**Core principle:** Global rules + domain scoping + two files per domain.
+
+**Two files per domain (non-negotiable):**
+- `{domain}.md` — operational. Resume state, current status, next task, open bugs. Changes every session.
+- `{domain}-ref.md` — reference. What exists, where it lives, how it works, why it's built this way. Changes only when architecture or decisions change.
 
 **Three-layer architecture:**
 ```
@@ -59,7 +63,7 @@ Do not load all three. Load only the one that matches the detected mode.
 ## Context slicing rules (non-negotiable)
 
 1. Never load full history
-2. Max 2–3 files per session (knowledge store = +1 file on Cold resume only)
+2. Load both domain files every session: `{domain}.md` + `{domain}-ref.md` (knowledge store = +1 on Cold resume only)
 3. Prefer structured data over prose
 4. Drop redundancy — if it's in the code, don't duplicate in context
 5. Compress before adding — update existing files, don't append forever
@@ -68,3 +72,4 @@ Do not load all three. Load only the one that matches the detected mode.
 8. Distill before the log grows unreadable — trigger at 20 entries or 30 days
 9. Knowledge store is read-only during RESUME — only written during UPDATE distillation
 10. Always load the domain file — gap determines whether to also load sessions/knowledge store, not whether to load the domain file
+11. {domain}-ref.md is a snapshot, not an accumulation — when a decision is superseded or a file path changes, replace it. Never append without pruning stale entries.

@@ -24,13 +24,29 @@ I'm not a software engineer. I'm sharing what I'm exploring as someone who came 
 
 ### context-manager
 
-Three-layer context system for any project. SETUP builds `docs/context/` so any AI tool can resume without re-reading everything. RESUME detects how long you've been away and loads the right amount of context. UPDATE saves progress and distills sessions into long-term learnings. Works with Claude, Codex, Cursor, Windsurf.
+Three-layer context system for any project. SETUP builds `docs/context/` so any AI tool can resume without re-reading everything. RESUME loads both the operational file (where you left off) and the reference file (what exists, how it works, why it's built this way). UPDATE saves progress and distills sessions into long-term learnings. Works with Claude, Codex, Cursor, Windsurf.
+
+Each domain gets two files: `{domain}.md` for operational resume state, `{domain}-ref.md` for what/where/how/why reference. Never mixed.
 
 **Invoke**
 ```
 /context-manager
 ```
 Or say: *"set up context for this project"* / *"resume"* / *"save session"*
+
+---
+
+### arch-map
+
+Generates a human-readable architecture document for any codebase. Outputs `docs/ARCHITECTURE.md` with a Mermaid system diagram, plain English system overview, step-by-step data flow, tech stack table with rationale, and key constraints. Built for stakeholders, contributors, and anyone who needs to understand the system without reading the code.
+
+Not a resume artifact — a communication artifact. Share it in your README, send it to collaborators, or use it to onboard new contributors.
+
+**Invoke**
+```
+/arch-map
+```
+Or say: *"map the architecture"* / *"document the system"* / *"explain this to a non-technical person"*
 
 ---
 

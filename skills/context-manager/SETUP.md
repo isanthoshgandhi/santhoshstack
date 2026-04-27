@@ -27,11 +27,12 @@ Examples: corpus/ingestion, product/UI, schema/database, algorithm/ranking, fron
 {project-root}/docs/context/pointers.md    ← single entry point, always
 ```
 
-**Small project (1–2 domains):** `docs/context/pointers.md` + `docs/context/main.md`
+**Small project (1–2 domains):** `docs/context/pointers.md` + `docs/context/main.md` + `docs/context/main-ref.md`
 
 **Medium project (2–4 domains):**
 ```
 docs/context/{domain-N}.md
+docs/context/{domain-N}-ref.md
 docs/sessions/SESSIONS.md
 docs/backlog/BACKLOG.md
 ```
@@ -41,6 +42,8 @@ docs/backlog/BACKLOG.md
 docs/context/        sessions/        changelog/
 backlog/             {domain}/        research/
 ```
+
+Every domain always gets two files: `{domain}.md` (operational) + `{domain}-ref.md` (reference). No exceptions.
 
 If a folder has no content, don't create it. Add structure when you need it.
 
@@ -64,8 +67,9 @@ Next action: {specific next step}
 *{what work this domain covers}*
 
 Load:
-1. `docs/context/{domain-1}.md` — current state, next tasks
-2. `docs/backlog/BACKLOG.md` — pending work (skim relevant section only)
+1. `docs/context/{domain-1}.md` — resume state, next tasks
+2. `docs/context/{domain-1}-ref.md` — what exists, where it lives, how it works, why
+3. `docs/backlog/BACKLOG.md` — pending work (skim relevant section only)
 
 Skip: all other domain files, sessions history, changelog
 
@@ -82,15 +86,16 @@ Skip: all other domain files, sessions history, changelog
 
 ### Step 4 — Write domain context files
 
-`docs/context/{domain}.md`:
+Two files per domain. Do not merge them.
+
+**`docs/context/{domain}.md`** — operational only, changes every session:
 
 ```markdown
-# {Domain} Context — Current State
+# {Domain} — Operational Context
 
 > Domain: {domain}
 > Updated: {YYYY-MM-DD HH:MM}
 > Staleness threshold: 14 days
-> READ THIS FIRST — contains full resume state
 
 ## RESUME FROM HERE
 Last session: {YYYY-MM-DD HH:MM}
@@ -98,12 +103,37 @@ What was done: {bullet points}
 Current state: {one sentence — specific numbers/status}
 Open bugs: {list with status}
 Next action: {single most important next step}
+Do NOT: {dead ends or approaches already ruled out this sprint}
 
 ## Current Status
-## Key File Paths
-## Architecture / How It Works
 ## Next Tasks (in order)
 ## Known Issues / Open Questions
+```
+
+**`docs/context/{domain}-ref.md`** — reference only, changes when architecture or decisions change:
+
+```markdown
+# {Domain} — Reference
+
+> Domain: {domain}
+> Updated: {YYYY-MM-DD HH:MM}
+> Snapshot, not a log. Replace stale entries — never append without pruning.
+> For human-readable architecture map, see docs/ARCHITECTURE.md (run /arch-map to generate)
+
+## What exists
+{Feature and capability inventory — what the system can do today}
+
+## Where it lives
+| Component | Path | Notes |
+|---|---|---|
+| {component} | {file/folder path} | {what to know} |
+
+## How it works
+{Architecture, data flow, key patterns — bullet facts, not prose}
+
+## Why it's built this way
+{Key decisions with rationale and rejected alternatives}
+- {decision}: {why this approach} [{YYYY-MM}] — Rejected: {alternatives and why not}
 ```
 
 ### Step 5 — Create operational files
