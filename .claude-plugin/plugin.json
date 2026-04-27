@@ -1,7 +1,7 @@
 {
   "name": "santhoshstack",
-  "version": "1.5.0",
-  "description": "Personal Claude Code skills by Santhosh Gandhi. Includes context-manager, arch-map, frugal-token-usage, foresight-intelligence, review, whybroken, and security-audit.",
+  "version": "1.6.0",
+  "description": "Personal Claude Code skills by Santhosh Gandhi. Includes context-manager, arch-map, frugal-token-usage, foresight-intelligence, review, whybroken, security-audit, and post-ai-thinking.",
   "author": {
     "name": "Santhosh Gandhi",
     "url": "https://github.com/isanthoshgandhi"
