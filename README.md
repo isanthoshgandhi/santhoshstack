@@ -22,93 +22,17 @@ I'm not a software engineer. I'm sharing what I'm exploring as someone who came 
 
 ## Skills
 
-### context-manager
+| Skill | What it does | Invoke |
+|---|---|---|
+| `context-manager` | Three-layer context system. SETUP builds `docs/context/` so any AI tool can resume without re-reading everything. Two files per domain — operational (`{domain}.md`) and reference (`{domain}-ref.md`). UPDATE distills sessions into long-term learnings. | `/context-manager` |
+| `arch-map` | Generates `docs/ARCHITECTURE.md` — Mermaid system diagram, plain English overview, data flow walkthrough, tech stack with rationale. For humans: share with stakeholders, collaborators, contributors. | `/arch-map` |
+| `frugal-token-usage` | Mid-session audit. Stops unnecessary Bash calls, enforces dedicated tools, cuts verbose responses. Run when a session feels bloated. | `/frugal-token-usage` |
+| `foresight-intelligence` | Strategic foresight using IFTF methodology. Soft Predict (instant) and Hard Predict (deterministic Python pipeline, identical output every run). | `/foresight-intelligence` |
+| `review` | Production-readiness review. Finds real bugs — logic errors, null access, data loss, auth gaps, race conditions, hardcoded secrets. Prioritised findings with exact `file:line` references. No style feedback. | `/review` |
+| `security-audit` | Security audit covering OWASP Top 10 — injection, auth gaps, secrets in code, missing validation, info leakage, CORS misconfig, missing rate limiting. Each finding includes attack vector and fix. | `/security-audit` |
+| `whybroken` | Root-cause tracer. Forms a hypothesis, follows the execution path to the actual cause, proposes the precise fix. Never patches symptoms. | `/whybroken` |
 
-Three-layer context system for any project. SETUP builds `docs/context/` so any AI tool can resume without re-reading everything. RESUME loads both the operational file (where you left off) and the reference file (what exists, how it works, why it's built this way). UPDATE saves progress and distills sessions into long-term learnings. Works with Claude, Codex, Cursor, Windsurf.
-
-Each domain gets two files: `{domain}.md` for operational resume state, `{domain}-ref.md` for what/where/how/why reference. Never mixed.
-
-**Invoke**
-```
-/context-manager
-```
-Or say: *"set up context for this project"* / *"resume"* / *"save session"*
-
----
-
-### arch-map
-
-Generates a human-readable architecture document for any codebase. Outputs `docs/ARCHITECTURE.md` with a Mermaid system diagram, plain English system overview, step-by-step data flow, tech stack table with rationale, and key constraints. Built for stakeholders, contributors, and anyone who needs to understand the system without reading the code.
-
-Not a resume artifact — a communication artifact. Share it in your README, send it to collaborators, or use it to onboard new contributors.
-
-**Invoke**
-```
-/arch-map
-```
-Or say: *"map the architecture"* / *"document the system"* / *"explain this to a non-technical person"*
-
----
-
-### frugal-token-usage
-
-Mid-session audit. Stops unnecessary Bash, enforces dedicated tools, cuts verbose responses. Run it when a session feels bloated or slow.
-
-**Invoke**
-```
-/frugal-token-usage
-```
-Or say: *"be frugal"* / *"reduce token usage"*
-
-> **Tip:** The frugal rules are more effective as permanent standing orders than as an on-demand skill. Copy them into `~/.claude/CLAUDE.md` to apply them every session. A starter file is in [`claude.md.example`](./claude.md.example).
-
----
-
-### foresight-intelligence
-
-Strategic foresight using IFTF methodology. Two modes — Soft Predict (instant, works on claude.ai and Claude Code) and Hard Predict (deterministic Python pipeline, identical output every run).
-
-**Invoke**
-```
-/foresight-intelligence
-```
-Or say: *"predict: [question]"* for Soft mode · *"hard predict: [question]"* for deterministic mode
-
----
-
-### review
-
-Production-readiness review. Scans changed files for real bugs — logic errors, null access, data loss, auth gaps, race conditions, unhandled errors, hardcoded secrets. Prioritised findings with exact `file:line` references. Stops at 7 findings. No style feedback, no refactor suggestions.
-
-**Invoke**
-```
-/review
-```
-Or say: *"review this"* / *"check my code"* / *"is this safe to ship?"*
-
----
-
-### security-audit
-
-Security vulnerability audit covering OWASP Top 10 and common API/backend attack surfaces — injection, auth gaps, secrets in code, missing input validation, info leakage, CORS misconfig, missing rate limiting. Exact `file:line` references with attack vector and fix for each finding.
-
-**Invoke**
-```
-/security-audit
-```
-Or say: *"security check"* / *"is this secure?"* / *"audit for vulnerabilities"*
-
----
-
-### whybroken
-
-Root-cause tracer for bugs and unexpected behaviour. Forms a hypothesis, follows the execution path from the symptom back to the actual cause, then proposes the precise fix. Never patches symptoms. Stops if the cause isn't clear and asks for what it needs.
-
-**Invoke**
-```
-/whybroken
-```
-Or say: *"why is this broken"* / *"why does this fail"* / paste an error
+> **Tip for `frugal-token-usage`:** The rules work better as permanent standing orders than on-demand. Copy them into `~/.claude/CLAUDE.md`. A starter file is in [`claude.md.example`](./claude.md.example).
 
 ---
 
