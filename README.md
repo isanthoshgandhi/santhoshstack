@@ -76,6 +76,42 @@ Or say: *"predict: [question]"* for Soft mode · *"hard predict: [question]"* fo
 
 ---
 
+### review
+
+Production-readiness review. Scans changed files for real bugs — logic errors, null access, data loss, auth gaps, race conditions, unhandled errors, hardcoded secrets. Prioritised findings with exact `file:line` references. Stops at 7 findings. No style feedback, no refactor suggestions.
+
+**Invoke**
+```
+/review
+```
+Or say: *"review this"* / *"check my code"* / *"is this safe to ship?"*
+
+---
+
+### security-audit
+
+Security vulnerability audit covering OWASP Top 10 and common API/backend attack surfaces — injection, auth gaps, secrets in code, missing input validation, info leakage, CORS misconfig, missing rate limiting. Exact `file:line` references with attack vector and fix for each finding.
+
+**Invoke**
+```
+/security-audit
+```
+Or say: *"security check"* / *"is this secure?"* / *"audit for vulnerabilities"*
+
+---
+
+### whybroken
+
+Root-cause tracer for bugs and unexpected behaviour. Forms a hypothesis, follows the execution path from the symptom back to the actual cause, then proposes the precise fix. Never patches symptoms. Stops if the cause isn't clear and asks for what it needs.
+
+**Invoke**
+```
+/whybroken
+```
+Or say: *"why is this broken"* / *"why does this fail"* / paste an error
+
+---
+
 ## Install
 
 > Requires [Claude Code](https://claude.ai/code) to be installed.
@@ -88,10 +124,22 @@ Just tell Claude Code what you want:
 Install the context-manager skill from github.com/isanthoshgandhi/santhoshstack
 ```
 ```
+Install the arch-map skill from github.com/isanthoshgandhi/santhoshstack
+```
+```
 Install the frugal-token-usage skill from github.com/isanthoshgandhi/santhoshstack
 ```
 ```
 Install the foresight-intelligence skill from github.com/isanthoshgandhi/santhoshstack
+```
+```
+Install the review skill from github.com/isanthoshgandhi/santhoshstack
+```
+```
+Install the security-audit skill from github.com/isanthoshgandhi/santhoshstack
+```
+```
+Install the whybroken skill from github.com/isanthoshgandhi/santhoshstack
 ```
 ```
 Install all skills from github.com/isanthoshgandhi/santhoshstack
