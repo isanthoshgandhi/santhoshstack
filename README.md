@@ -44,40 +44,16 @@ I'm not a software engineer. I'm sharing what I'm exploring as someone who came 
 
 ### AI-native
 
-Just tell Claude Code what you want:
+Tell Claude Code which skill you want, or install everything at once:
 
 ```
-Install the context-manager skill from github.com/isanthoshgandhi/santhoshstack
-```
-```
-Install the arch-map skill from github.com/isanthoshgandhi/santhoshstack
-```
-```
-Install the frugal-token-usage skill from github.com/isanthoshgandhi/santhoshstack
-```
-```
-Install the foresight-intelligence skill from github.com/isanthoshgandhi/santhoshstack
-```
-```
-Install the review skill from github.com/isanthoshgandhi/santhoshstack
-```
-```
-Install the security-audit skill from github.com/isanthoshgandhi/santhoshstack
-```
-```
-Install the whybroken skill from github.com/isanthoshgandhi/santhoshstack
-```
-```
-Install the post-ai-thinking skill from github.com/isanthoshgandhi/santhoshstack
-```
-```
-Install the usability-heuristics skill from github.com/isanthoshgandhi/santhoshstack
+Install the <skill-name> skill from github.com/isanthoshgandhi/santhoshstack
 ```
 ```
 Install all skills from github.com/isanthoshgandhi/santhoshstack
 ```
 
-Claude will handle the rest. No commands, no paths, no platform differences.
+Replace `<skill-name>` with any name from the Skills table above. Claude handles the rest — no commands, no paths, no platform differences.
 
 ---
 
@@ -88,26 +64,23 @@ Claude will handle the rest. No commands, no paths, no platform differences.
 git clone https://github.com/isanthoshgandhi/santhoshstack.git
 ```
 
-**Copy what you need:**
+**Copy one skill or all:**
 
 Mac / Linux:
 ```bash
-cp -r santhoshstack/skills/context-manager ~/.claude/skills/
-cp -r santhoshstack/skills/frugal-token-usage ~/.claude/skills/
-cp -r santhoshstack/skills/foresight-intelligence ~/.claude/skills/
+# One skill
+cp -r santhoshstack/skills/<skill-name> ~/.claude/skills/
 
-# or all at once
+# All skills
 cp -r santhoshstack/skills/* ~/.claude/skills/
 ```
 
 Windows (PowerShell):
 ```powershell
-Copy-Item -Recurse santhoshstack\skills\context-manager $env:USERPROFILE\.claude\skills\
-Copy-Item -Recurse santhoshstack\skills\frugal-token-usage $env:USERPROFILE\.claude\skills\
-Copy-Item -Recurse santhoshstack\skills\foresight-intelligence $env:USERPROFILE\.claude\skills\
-Copy-Item -Recurse santhoshstack\skills\usability-heuristics $env:USERPROFILE\.claude\skills\
+# One skill
+Copy-Item -Recurse santhoshstack\skills\<skill-name> $env:USERPROFILE\.claude\skills\
 
-# or all at once
+# All skills
 Copy-Item -Recurse santhoshstack\skills\* $env:USERPROFILE\.claude\skills\
 ```
 
