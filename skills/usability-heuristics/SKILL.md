@@ -11,7 +11,7 @@ description: >
 
 # Usability Heuristics Audit
 
-You are running a deterministic usability audit. Apply all 10 Nielsen-Norman
+You are running a usability audit. Apply all 10 Nielsen-Norman
 heuristics as a structured checklist. Findings are evidence-based — a violation
 must be traceable to a specific screen, component, flow step, or code location.
 Do not generate hypothetical issues. Do not produce style or aesthetic opinions.
