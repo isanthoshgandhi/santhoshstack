@@ -229,15 +229,15 @@ user responds.**
 
 ---
 
-## Phase 5: Design Doc
+## Phase 5: Feedback Doc
 
-Write the design doc to `docs/designs/{slug}-{date}.md` in the project root.
-If `docs/designs/` doesn't exist, create it.
+Write the feedback doc to `docs/feedback/{slug}-{date}.md` in the project root.
+If `docs/feedback/` doesn't exist, create it.
 
 ### Template
 
 ```markdown
-# Design: {title}
+# Feedback: {title}
 
 Date: {date}
 Mode: {Startup|Builder}
@@ -258,6 +258,12 @@ Status: DRAFT
 ## Premises
 {from Phase 3}
 
+## What's Working
+{strengths surfaced during the diagnostic}
+
+## What's Not Working
+{gaps, red flags, weak signals}
+
 ## Approaches Considered
 ### Approach A: {name}
 {summary, effort, risk, pros, cons}
@@ -273,7 +279,7 @@ Status: DRAFT
 validate; for builder: what to build first}
 ```
 
-After writing, tell the user: "Design doc saved to: {path}."
+After writing, tell the user: "Feedback doc saved to: {path}."
 
 ---
 
